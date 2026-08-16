@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { EVENT } from "@/lib/event";
+import { RoseCluster } from "@/components/RoseCluster";
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 18 },
@@ -20,12 +21,11 @@ export function InviteCard() {
     >
       <div className="absolute -inset-3 rounded-[2rem] bg-white/25 blur-xl" />
 
-      {/* Outer frame — roses sit here so they can peek past the arch */}
       <div className="relative overflow-visible px-1 py-2">
-        <CornerRose src="/assets/rose-tl.png" position="tl" />
-        <CornerRose src="/assets/rose-tr.png" position="tr" />
-        <CornerRose src="/assets/rose-bl.png" position="bl" />
-        <CornerRose src="/assets/rose-br.png" position="br" />
+        <RoseCluster position="tl" />
+        <RoseCluster position="tr" />
+        <RoseCluster position="bl" />
+        <RoseCluster position="br" />
 
         <div
           className="relative z-[1] border-[1.5px] border-invite-gold bg-invite-cream px-6 pb-12 pt-10 shadow-2xl sm:px-9 sm:pb-14 sm:pt-12"
@@ -104,51 +104,6 @@ export function InviteCard() {
         </div>
       </div>
     </motion.article>
-  );
-}
-
-function CornerRose({
-  src,
-  position,
-}: {
-  src: string;
-  position: "tl" | "tr" | "bl" | "br";
-}) {
-  const pos =
-    position === "tl"
-      ? "-left-5 -top-3 sm:-left-6 sm:-top-4"
-      : position === "tr"
-        ? "-right-5 -top-3 sm:-right-6 sm:-top-4"
-        : position === "bl"
-          ? "-bottom-3 -left-5 sm:-bottom-4 sm:-left-6"
-          : "-bottom-3 -right-5 sm:-bottom-4 sm:-right-6";
-
-  const mask =
-    position === "tl"
-      ? "radial-gradient(ellipse 90% 90% at 15% 15%, #000 35%, transparent 72%)"
-      : position === "tr"
-        ? "radial-gradient(ellipse 90% 90% at 85% 15%, #000 35%, transparent 72%)"
-        : position === "bl"
-          ? "radial-gradient(ellipse 90% 90% at 15% 85%, #000 35%, transparent 72%)"
-          : "radial-gradient(ellipse 90% 90% at 85% 85%, #000 35%, transparent 72%)";
-
-  return (
-    <div
-      className={`pointer-events-none absolute z-20 h-28 w-28 sm:h-36 sm:w-36 ${pos}`}
-      style={{
-        WebkitMaskImage: mask,
-        maskImage: mask,
-      }}
-      aria-hidden
-    >
-      <Image
-        src={src}
-        alt=""
-        fill
-        className="object-cover mix-blend-multiply"
-        sizes="144px"
-      />
-    </div>
   );
 }
 
