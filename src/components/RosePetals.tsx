@@ -52,7 +52,7 @@ export function RosePetals({
   className = "",
 }: RosePetalsProps) {
   const reduceMotion = useReducedMotion();
-  const [count, setCount] = useState<number>(() => PETAL_DENSITY[density]);
+  const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 640px)");
@@ -63,7 +63,7 @@ export function RosePetals({
     return () => mq.removeEventListener("change", update);
   }, [density]);
 
-  if (reduceMotion) return null;
+  if (reduceMotion || count === null) return null;
 
   return (
     <div
