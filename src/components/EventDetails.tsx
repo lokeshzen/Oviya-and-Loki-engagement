@@ -1,0 +1,144 @@
+"use client";
+
+import { ScrollReveal, SectionHeading } from "@/components/ScrollReveal";
+import { Card } from "@/components/ui/Card";
+import { EVENT } from "@/lib/event";
+
+const details = [
+  {
+    label: "Date",
+    value: EVENT.dateLabel,
+    icon: CalendarIcon,
+  },
+  {
+    label: "Time",
+    value: EVENT.timeLabel,
+    icon: ClockIcon,
+  },
+  {
+    label: "Venue",
+    value: EVENT.venue,
+    icon: PinIcon,
+    href: EVENT.mapsUrl,
+  },
+] as const;
+
+export function EventDetails() {
+  return (
+    <section id="details" className="section-padding">
+      <div className="container-wide">
+        <ScrollReveal>
+          <SectionHeading
+            eyebrow="Event Details"
+            title="Join Us for the Celebration"
+            description="We would be honoured to have you with us on this special day."
+          />
+        </ScrollReveal>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-3">
+          {details.map((detail, index) => (
+            <ScrollReveal key={detail.label} delay={index * 0.08}>
+              <DetailCard {...detail} />
+            </ScrollReveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DetailCard({
+  label,
+  value,
+  icon: Icon,
+  href,
+}: {
+  label: string;
+  value: string;
+  icon: () => React.ReactNode;
+  href?: string;
+}) {
+  const content = (
+    <Card
+      variant="default"
+      className="flex h-full flex-col items-center text-center transition hover:border-invite-gold/50 hover:shadow-md"
+    >
+      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-invite-blush text-invite-burgundy">
+        <Icon />
+      </div>
+      <p className="font-body text-[0.65rem] font-medium tracking-[0.15em] text-invite-gray uppercase">
+        {label}
+      </p>
+      <p className="mt-2 font-display text-base font-medium leading-snug text-invite-burgundy">
+        {value}
+      </p>
+    </Card>
+  );
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-gold focus-visible:ring-offset-2"
+        aria-label={`${label}: ${value} — open in maps`}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return content;
+}
+
+function CalendarIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden
+    >
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <path d="M3 10h18M8 3v4M16 3v4" />
+    </svg>
+  );
+}
+
+function ClockIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </svg>
+  );
+}
+
+function PinIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden
+    >
+      <path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
+  );
+}

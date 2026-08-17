@@ -15,9 +15,44 @@ export const EVENT = {
 } as const;
 
 export const COLORS = {
-  pink: "#f4cfd8",
-  cream: "#fbf6ee",
-  burgundy: "#7a1f2b",
-  gold: "#c9a227",
-  goldSoft: "#e8d5a3",
+  roseGold: "#D4A574",
+  burgundy: "#7A1F2B",
+  cream: "#FAF7F2",
+  gold: "#C9A227",
+  goldSoft: "#E8D5A3",
+  charcoal: "#2D2D2D",
+  gray: "#6B6560",
+  grayLight: "#A39E98",
+  blush: "#F5E6E0",
 } as const;
+
+/** Placeholder gallery — replace src paths with your engagement photos */
+export const GALLERY_PHOTOS = [
+  {
+    src: "/assets/invite-source.png",
+    alt: "Engagement invitation design",
+  },
+  {
+    src: "/assets/murugan.png",
+    alt: "Lord Murugan with peacock — Murugan Thunai",
+  },
+] as const;
+
+export const TIMELINE_MILESTONES = [
+  {
+    label: "Save the Date",
+    date: "August 2026",
+    description: "Our engagement celebration is on the horizon.",
+  },
+  {
+    label: "Engagement Day",
+    date: EVENT.dateLabel,
+    description: `Join us at ${EVENT.venue} at ${EVENT.timeLabel}.`,
+    highlight: true,
+  },
+  {
+    label: "Wedding Bells",
+    date: "Coming Soon",
+    description: "The next chapter of our journey together.",
+  },
+] as const;

@@ -16,7 +16,7 @@ export default async function Image() {
           alignItems: "center",
           justifyContent: "center",
           background:
-            "linear-gradient(160deg, #f4cfd8 0%, #f9e4ea 50%, #f4cfd8 100%)",
+            "linear-gradient(160deg, #FAF7F2 0%, #F5E6E0 50%, #FAF7F2 100%)",
           fontFamily: "Georgia, serif",
         }}
       >
@@ -28,19 +28,19 @@ export default async function Image() {
             justifyContent: "center",
             width: 900,
             height: 480,
-            background: "#fbf6ee",
-            borderRadius: "200px 200px 24px 24px",
-            border: "3px solid #c9a227",
-            boxShadow: "0 20px 60px rgba(122, 31, 43, 0.15)",
+            background: "#FFFFFF",
+            borderRadius: 24,
+            border: "2px solid #E8D5A3",
+            boxShadow: "0 20px 60px rgba(45, 45, 45, 0.08)",
           }}
         >
-          <div style={{ color: "#c9a227", fontSize: 28, marginBottom: 12 }}>
-            * Murugan Thunai *
+          <div style={{ color: "#D4A574", fontSize: 22, marginBottom: 12 }}>
+            Murugan Thunai
           </div>
           <div
             style={{
-              color: "#7a1f2b",
-              fontSize: 22,
+              color: "#6B6560",
+              fontSize: 20,
               letterSpacing: 4,
               textTransform: "uppercase",
             }}
@@ -49,25 +49,25 @@ export default async function Image() {
           </div>
           <div
             style={{
-              color: "#7a1f2b",
-              fontSize: 72,
-              fontStyle: "italic",
-              marginTop: 8,
+              color: "#7A1F2B",
+              fontSize: 64,
+              fontWeight: 500,
+              marginTop: 12,
             }}
           >
             Engagement
           </div>
           <div
             style={{
-              color: "#7a1f2b",
-              fontSize: 56,
+              color: "#7A1F2B",
+              fontSize: 48,
               fontStyle: "italic",
-              marginTop: 8,
+              marginTop: 16,
             }}
           >
-            Oviya ♥ Lokesh
+            Oviya & Lokesh
           </div>
-          <div style={{ color: "#7a1f2b", fontSize: 24, marginTop: 24 }}>
+          <div style={{ color: "#2D2D2D", fontSize: 24, marginTop: 24 }}>
             September 9, 2026 · 10am · Hotel Emerald, Ranipet
           </div>
         </div>

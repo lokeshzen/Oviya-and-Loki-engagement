@@ -1,18 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Great_Vibes } from "next/font/google";
+import { Allura, Inter, Playfair_Display } from "next/font/google";
+import { EVENT } from "@/lib/event";
 import "./globals.css";
 
-const greatVibes = Great_Vibes({
-  weight: "400",
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-great-vibes",
+  variable: "--font-playfair",
   display: "swap",
 });
 
-const cormorant = Cormorant_Garamond({
-  weight: ["400", "500", "600", "700"],
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-cormorant",
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const allura = Allura({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-allura",
   display: "swap",
 });
 
@@ -21,35 +27,48 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Oviya & Lokesh — Engagement",
-  description:
-    "You are cordially invited to the engagement of Oviya & Lokesh on September 9, 2026 at Hotel Emerald, Ranipet.",
+  title: `${EVENT.bride} & ${EVENT.groom} — ${EVENT.title}`,
+  description: `You are cordially invited to the ${EVENT.title.toLowerCase()} of ${EVENT.bride} & ${EVENT.groom} on ${EVENT.dateLabel} at ${EVENT.venue}.`,
   openGraph: {
-    title: "Oviya & Lokesh — Engagement",
-    description:
-      "September 9, 2026 · 10am · Hotel Emerald, Ranipet. You are cordially invited.",
+    title: `${EVENT.bride} & ${EVENT.groom} — ${EVENT.title}`,
+    description: `${EVENT.dateLabel} · ${EVENT.timeLabel} · ${EVENT.venue}. You are cordially invited.`,
     type: "website",
     locale: "en_IN",
-    siteName: "Oviya & Lokesh Engagement",
+    siteName: `${EVENT.bride} & ${EVENT.groom} ${EVENT.title}`,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Oviya & Lokesh — Engagement",
-    description:
-      "September 9, 2026 · 10am · Hotel Emerald, Ranipet. You are cordially invited.",
+    title: `${EVENT.bride} & ${EVENT.groom} — ${EVENT.title}`,
+    description: `${EVENT.dateLabel} · ${EVENT.timeLabel} · ${EVENT.venue}. You are cordially invited.`,
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Oviya & Lokesh",
+    title: `${EVENT.bride} & ${EVENT.groom}`,
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f4cfd8",
+  themeColor: "#FAF7F2",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  name: `${EVENT.bride} & ${EVENT.groom} — ${EVENT.title}`,
+  startDate: EVENT.startISO,
+  endDate: EVENT.endISO,
+  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  eventStatus: "https://schema.org/EventScheduled",
+  location: {
+    "@type": "Place",
+    name: EVENT.venue,
+    address: EVENT.venue,
+  },
+  description: `Engagement celebration of ${EVENT.bride} and ${EVENT.groom}.`,
 };
 
 export default function RootLayout({
@@ -60,8 +79,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${greatVibes.variable} ${cormorant.variable} font-serif antialiased`}
+        className={`${playfair.variable} ${inter.variable} ${allura.variable} font-body antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         {children}
       </body>
     </html>
