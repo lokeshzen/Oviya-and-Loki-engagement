@@ -120,7 +120,7 @@ export async function sendRsvpNotification(payload: RsvpPayload): Promise<void> 
     return;
   }
 
-  const transporter = nodemailer.createTransporter({
+  const transporter = nodemailer.createTransport({
     host,
     port,
     secure: false, // Use STARTTLS

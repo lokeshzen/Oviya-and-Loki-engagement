@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3002](http://localhost:3002).
 
 ## Environment
 
@@ -17,7 +17,7 @@ Copy `.env.example` to `.env.local`:
 
 ```bash
 RSVP_WEBHOOK_URL=          # Google Apps Script web app URL (optional for local demo)
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_SITE_URL=http://localhost:3002
 NEXT_PUBLIC_MAPS_URL=https://www.google.com/maps/search/?api=1&query=Hotel+Emerald+Ranipet
 GMAIL_USER=                # Gmail address used to send RSVP emails
 GMAIL_APP_PASSWORD=        # Gmail App Password (not your regular password)
