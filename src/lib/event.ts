@@ -26,18 +26,6 @@ export const COLORS = {
   blush: "#F5E6E0",
 } as const;
 
-/** Placeholder gallery — replace src paths with your engagement photos */
-export const GALLERY_PHOTOS = [
-  {
-    src: "/assets/invite-source.png",
-    alt: "Engagement invitation design",
-  },
-  {
-    src: "/assets/murugan.png",
-    alt: "Lord Murugan with peacock — Murugan Thunai",
-  },
-] as const;
-
 export const TIMELINE_MILESTONES = [
   {
     label: "Save the Date",
@@ -46,8 +34,8 @@ export const TIMELINE_MILESTONES = [
   },
   {
     label: "Engagement Day",
-    date: EVENT.dateLabel,
-    description: `Join us at ${EVENT.venue} at ${EVENT.timeLabel}.`,
+    date: "September 2026",
+    description: "The day we begin our forever together.",
     highlight: true,
   },
   {

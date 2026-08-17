@@ -1,10 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { ParallaxSection } from "@/components/ParallaxSection";
 import { ScrollReveal, SectionHeading } from "@/components/ScrollReveal";
 import { Button } from "@/components/ui/Button";
 import { downloadIcs, googleCalendarUrl } from "@/lib/calendar";
 import { EVENT } from "@/lib/event";
+import { PALACE_IMAGES } from "@/lib/palace-assets";
+import { hoverLift } from "@/lib/animations";
 
 export function ActionButtons() {
   const [icsLoading, setIcsLoading] = useState(false);
@@ -34,9 +38,15 @@ export function ActionButtons() {
   };
 
   return (
-    <section id="actions" className="section-padding">
+    <ParallaxSection
+      id="actions"
+      backgroundSrc={PALACE_IMAGES.garden}
+      backgroundAlt="Royal garden pathway with traditional lamps"
+      overlay="deep"
+      speed={0.25}
+    >
       <div className="container-narrow">
-        <ScrollReveal>
+        <ScrollReveal direction="scale">
           <SectionHeading
             eyebrow="Plan Your Visit"
             title="Save the Date"
@@ -46,35 +56,43 @@ export function ActionButtons() {
 
         <ScrollReveal delay={0.1} className="mt-8">
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
-            <a
+            <motion.a
               href={EVENT.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-invite-gold/60 bg-white px-5 py-3 font-body text-sm text-invite-burgundy shadow-sm transition hover:border-invite-gold hover:bg-invite-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-gold focus-visible:ring-offset-2 sm:flex-none"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-invite-gold/60 bg-white/85 px-5 py-3 font-body text-sm text-invite-burgundy shadow-sm backdrop-blur-sm transition hover:border-invite-gold hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-gold focus-visible:ring-offset-2 sm:flex-none"
+              variants={hoverLift}
+              initial="rest"
+              whileHover="hover"
             >
               <PinIcon />
               Open Maps
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               href={googleCalendarUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-invite-gold/60 bg-white px-5 py-3 font-body text-sm text-invite-burgundy shadow-sm transition hover:border-invite-gold hover:bg-invite-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-gold focus-visible:ring-offset-2 sm:flex-none"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-invite-gold/60 bg-white/85 px-5 py-3 font-body text-sm text-invite-burgundy shadow-sm backdrop-blur-sm transition hover:border-invite-gold hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-gold focus-visible:ring-offset-2 sm:flex-none"
+              variants={hoverLift}
+              initial="rest"
+              whileHover="hover"
             >
               <CalendarIcon />
               Google Calendar
-            </a>
-            <Button
-              type="button"
-              variant="outline"
-              size="lg"
-              loading={icsLoading}
-              onClick={handleIcs}
-              className="flex-1 sm:flex-none"
-            >
-              <DownloadIcon />
-              Save .ics
-            </Button>
+            </motion.a>
+            <motion.div variants={hoverLift} initial="rest" whileHover="hover">
+              <Button
+                type="button"
+                variant="outline"
+                size="lg"
+                loading={icsLoading}
+                onClick={handleIcs}
+                className="w-full flex-1 bg-white/85 backdrop-blur-sm sm:flex-none"
+              >
+                <DownloadIcon />
+                Save .ics
+              </Button>
+            </motion.div>
           </div>
         </ScrollReveal>
 
@@ -84,7 +102,7 @@ export function ActionButtons() {
           </Button>
         </ScrollReveal>
       </div>
-    </section>
+    </ParallaxSection>
   );
 }
 

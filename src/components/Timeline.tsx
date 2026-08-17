@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { ParallaxSection } from "@/components/ParallaxSection";
 import { ScrollReveal, SectionHeading } from "@/components/ScrollReveal";
 import { Card } from "@/components/ui/Card";
 import { EVENT, TIMELINE_MILESTONES } from "@/lib/event";
+import { PALACE_IMAGES } from "@/lib/palace-assets";
 import { formatCountdownValue } from "@/lib/utils";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 
@@ -23,10 +25,14 @@ function getParts(target: number): Parts | null {
 
 export function Timeline() {
   const target = new Date(EVENT.startISO).getTime();
-  const [parts, setParts] = useState<Parts | null>(() => getParts(target));
+  const [parts, setParts] = useState<Parts | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const id = setInterval(() => setParts(getParts(target)), 1000);
+    setMounted(true);
+    const update = () => setParts(getParts(target));
+    update();
+    const id = setInterval(update, 1000);
     return () => clearInterval(id);
   }, [target]);
 
@@ -37,12 +43,29 @@ export function Timeline() {
         ["Mins", parts.minutes],
         ["Secs", parts.seconds],
       ]
-    : [];
+    : [
+        ["Days", 0],
+        ["Hours", 0],
+        ["Mins", 0],
+        ["Secs", 0],
+      ];
+
+  const showCountdown = mounted && parts;
+  const showPlaceholder = !mounted;
+  const showCelebration = mounted && !parts;
 
   return (
-    <section id="timeline" className="section-padding bg-invite-blush/30">
+    <ParallaxSection
+      id="timeline"
+      backgroundSrc={PALACE_IMAGES.timeline}
+      backgroundAlt="Royal palace courtyard with fountain and gardens"
+      overlay="blush"
+      speed={0.4}
+      decorativeBorder
+      borderSrc={PALACE_IMAGES.border}
+    >
       <div className="container-wide">
-        <ScrollReveal>
+        <ScrollReveal direction="down">
           <SectionHeading
             eyebrow="The Journey"
             title="Counting Down to Our Day"
@@ -50,9 +73,13 @@ export function Timeline() {
           />
         </ScrollReveal>
 
-        <ScrollReveal delay={0.1} className="mt-10">
-          <Card variant="elevated" className="mx-auto max-w-md">
-            {parts ? (
+        <ScrollReveal delay={0.1} direction="scale" className="mt-10">
+          <Card variant="elevated" className="mx-auto max-w-md backdrop-blur-sm">
+            {showCelebration ? (
+              <p className="text-center font-display text-lg text-invite-burgundy">
+                The celebration has begun!
+              </p>
+            ) : (
               <div>
                 <p className="mb-4 text-center font-body text-xs tracking-[0.2em] text-invite-gray uppercase">
                   Time remaining
@@ -61,11 +88,14 @@ export function Timeline() {
                   {cells.map(([label, value]) => (
                     <div
                       key={label}
-                      className="rounded-xl border border-invite-gold/20 bg-invite-cream/80 px-2 py-4 text-center"
+                      className="rounded-xl border border-invite-gold/20 bg-invite-cream/80 px-2 py-4 text-center backdrop-blur-sm"
                     >
                       <div
-                        className="font-display text-2xl font-medium text-invite-burgundy tabular-nums sm:text-3xl"
-                        aria-live="polite"
+                        className={`font-display text-2xl font-medium text-invite-burgundy tabular-nums sm:text-3xl${
+                          showPlaceholder ? " opacity-40" : ""
+                        }`}
+                        aria-live={showCountdown ? "polite" : undefined}
+                        aria-hidden={showPlaceholder}
                       >
                         {formatCountdownValue(value)}
                       </div>
@@ -76,10 +106,6 @@ export function Timeline() {
                   ))}
                 </div>
               </div>
-            ) : (
-              <p className="text-center font-display text-lg text-invite-burgundy">
-                The celebration has begun!
-              </p>
             )}
           </Card>
         </ScrollReveal>
@@ -116,7 +142,7 @@ export function Timeline() {
                     <span className="absolute inset-1 rounded-full bg-invite-gold-soft" />
                   )}
                 </div>
-                <div className="flex-1 pt-0.5">
+                <div className="flex-1 rounded-xl bg-white/50 px-3 py-2 backdrop-blur-sm">
                   <p className="font-body text-[0.65rem] tracking-[0.15em] text-invite-rose-gold uppercase">
                     {milestone.date}
                   </p>
@@ -132,6 +158,6 @@ export function Timeline() {
           </motion.ol>
         </ScrollReveal>
       </div>
-    </section>
+    </ParallaxSection>
   );
 }

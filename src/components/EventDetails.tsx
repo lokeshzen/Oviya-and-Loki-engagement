@@ -1,8 +1,12 @@
 "use client";
 
+import { motion } from "framer-motion";
+import { ParallaxSection } from "@/components/ParallaxSection";
 import { ScrollReveal, SectionHeading } from "@/components/ScrollReveal";
 import { Card } from "@/components/ui/Card";
 import { EVENT } from "@/lib/event";
+import { PALACE_IMAGES } from "@/lib/palace-assets";
+import { hoverLift } from "@/lib/animations";
 
 const details = [
   {
@@ -25,9 +29,15 @@ const details = [
 
 export function EventDetails() {
   return (
-    <section id="details" className="section-padding">
+    <ParallaxSection
+      id="details"
+      backgroundSrc={PALACE_IMAGES.eventHall}
+      backgroundAlt="Elegant palace hall with chandeliers and marble columns"
+      overlay="warm"
+      speed={0.3}
+    >
       <div className="container-wide">
-        <ScrollReveal>
+        <ScrollReveal direction="left">
           <SectionHeading
             eyebrow="Event Details"
             title="Join Us for the Celebration"
@@ -37,13 +47,17 @@ export function EventDetails() {
 
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
           {details.map((detail, index) => (
-            <ScrollReveal key={detail.label} delay={index * 0.08}>
+            <ScrollReveal
+              key={detail.label}
+              delay={index * 0.08}
+              direction={index % 2 === 0 ? "right" : "left"}
+            >
               <DetailCard {...detail} />
             </ScrollReveal>
           ))}
         </div>
       </div>
-    </section>
+    </ParallaxSection>
   );
 }
 
@@ -59,20 +73,22 @@ function DetailCard({
   href?: string;
 }) {
   const content = (
-    <Card
-      variant="default"
-      className="flex h-full flex-col items-center text-center transition hover:border-invite-gold/50 hover:shadow-md"
-    >
-      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-invite-blush text-invite-burgundy">
-        <Icon />
-      </div>
-      <p className="font-body text-[0.65rem] font-medium tracking-[0.15em] text-invite-gray uppercase">
-        {label}
-      </p>
-      <p className="mt-2 font-display text-base font-medium leading-snug text-invite-burgundy">
-        {value}
-      </p>
-    </Card>
+    <motion.div initial="rest" whileHover="hover" variants={hoverLift}>
+      <Card
+        variant="default"
+        className="flex h-full flex-col items-center bg-white/75 text-center backdrop-blur-sm transition-shadow hover:border-invite-gold/50 hover:shadow-md"
+      >
+        <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-invite-blush text-invite-burgundy">
+          <Icon />
+        </div>
+        <p className="font-body text-[0.65rem] font-medium tracking-[0.15em] text-invite-gray uppercase">
+          {label}
+        </p>
+        <p className="mt-2 font-display text-base font-medium leading-snug text-invite-burgundy">
+          {value}
+        </p>
+      </Card>
+    </motion.div>
   );
 
   if (href) {

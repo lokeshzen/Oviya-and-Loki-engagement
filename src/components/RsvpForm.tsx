@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ParallaxSection } from "@/components/ParallaxSection";
 import { ScrollReveal, SectionHeading } from "@/components/ScrollReveal";
 import { Button } from "@/components/ui/Button";
 import {
@@ -13,6 +14,7 @@ import {
 import { FieldWrapper, Input, Textarea } from "@/components/ui/Input";
 import { fadeUp } from "@/lib/animations";
 import { EVENT } from "@/lib/event";
+import { PALACE_IMAGES } from "@/lib/palace-assets";
 
 type Status = "idle" | "loading" | "success" | "error";
 type Step = 1 | 2 | 3;
@@ -117,10 +119,18 @@ export function RsvpForm() {
 
   if (status === "success") {
     return (
-      <section id="rsvp" className="section-padding bg-invite-blush/30">
+      <ParallaxSection
+        id="rsvp"
+        backgroundSrc={PALACE_IMAGES.garden}
+        backgroundAlt="Royal garden pathway with traditional lamp lighting"
+        overlay="blush"
+        speed={0.35}
+        decorativeBorder
+        borderSrc={PALACE_IMAGES.border}
+      >
         <div className="container-narrow">
-          <ScrollReveal>
-            <Card variant="elevated" className="text-center">
+          <ScrollReveal direction="scale">
+            <Card variant="elevated" className="text-center backdrop-blur-sm">
               <p className="font-accent text-5xl text-invite-burgundy">
                 Thank you!
               </p>
@@ -141,14 +151,22 @@ export function RsvpForm() {
             </Card>
           </ScrollReveal>
         </div>
-      </section>
+      </ParallaxSection>
     );
   }
 
   return (
-    <section id="rsvp" className="section-padding bg-invite-blush/30">
+    <ParallaxSection
+      id="rsvp"
+      backgroundSrc={PALACE_IMAGES.garden}
+      backgroundAlt="Royal garden pathway with traditional lamp lighting"
+      overlay="blush"
+      speed={0.35}
+      decorativeBorder
+      borderSrc={PALACE_IMAGES.border}
+    >
       <div className="container-narrow">
-        <ScrollReveal>
+        <ScrollReveal direction="right">
           <SectionHeading
             eyebrow="RSVP"
             title="Kindly Respond"
@@ -156,8 +174,8 @@ export function RsvpForm() {
           />
         </ScrollReveal>
 
-        <ScrollReveal delay={0.1} className="mt-8">
-          <Card variant="elevated">
+        <ScrollReveal delay={0.1} direction="scale" className="mt-8">
+          <Card variant="elevated" className="backdrop-blur-sm">
             <CardHeader className="mb-4">
               <div className="mb-4 flex justify-center gap-2">
                 {[1, 2, 3].map((s) => (
@@ -359,6 +377,6 @@ export function RsvpForm() {
           </Card>
         </ScrollReveal>
       </div>
-    </section>
+    </ParallaxSection>
   );
 }

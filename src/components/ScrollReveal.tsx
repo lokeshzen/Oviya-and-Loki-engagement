@@ -1,21 +1,28 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { fadeUp, viewportOnce } from "@/lib/animations";
+import {
+  revealVariants,
+  viewportOnce,
+  type RevealDirection,
+} from "@/lib/animations";
 import { cn } from "@/lib/utils";
 
 type ScrollRevealProps = {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  direction?: RevealDirection;
 };
 
 export function ScrollReveal({
   children,
   className,
   delay = 0,
+  direction = "up",
 }: ScrollRevealProps) {
   const reduceMotion = useReducedMotion();
+  const variant = revealVariants[direction];
 
   if (reduceMotion) {
     return <div className={className}>{children}</div>;
@@ -28,14 +35,14 @@ export function ScrollReveal({
       whileInView="visible"
       viewport={viewportOnce}
       variants={{
-        hidden: fadeUp.hidden,
+        hidden: variant.hidden,
         visible: {
-          ...fadeUp.visible,
+          ...variant.visible,
           transition: {
-            ...(typeof fadeUp.visible === "object" &&
-            fadeUp.visible !== null &&
-            "transition" in fadeUp.visible
-              ? fadeUp.visible.transition
+            ...(typeof variant.visible === "object" &&
+            variant.visible !== null &&
+            "transition" in variant.visible
+              ? variant.visible.transition
               : {}),
             delay,
           },
@@ -52,24 +59,47 @@ export function SectionHeading({
   title,
   description,
   className,
+  onImage = true,
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   className?: string;
+  onImage?: boolean;
 }) {
   return (
-    <div className={cn("text-center", className)}>
+    <div
+      className={cn(
+        "text-center",
+        onImage && "section-heading-panel",
+        className,
+      )}
+    >
       {eyebrow && (
-        <p className="mb-2 font-body text-[0.65rem] font-medium tracking-[0.2em] text-invite-rose-gold uppercase">
+        <p
+          className={cn(
+            "section-eyebrow mb-2 font-body text-[0.65rem] font-semibold tracking-[0.2em] uppercase",
+            !onImage && "text-invite-rose-gold",
+          )}
+        >
           {eyebrow}
         </p>
       )}
-      <h2 className="font-display text-2xl font-medium tracking-tight text-invite-burgundy sm:text-3xl">
+      <h2
+        className={cn(
+          "section-title font-display text-2xl font-medium tracking-tight sm:text-3xl",
+          !onImage && "text-invite-burgundy",
+        )}
+      >
         {title}
       </h2>
       {description && (
-        <p className="mx-auto mt-3 max-w-sm font-body text-sm leading-relaxed text-invite-gray">
+        <p
+          className={cn(
+            "section-description mx-auto mt-3 max-w-sm font-body text-sm leading-relaxed",
+            !onImage && "text-invite-gray",
+          )}
+        >
           {description}
         </p>
       )}
