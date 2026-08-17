@@ -2,13 +2,16 @@ import { cn } from "@/lib/utils";
 import { HTMLAttributes } from "react";
 
 type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
-  variant?: "default" | "gold" | "burgundy";
+  variant?: "default" | "gold" | "royal";
 };
 
 const variantStyles = {
-  default: "bg-invite-blush text-invite-burgundy border-invite-gold/20",
-  gold: "bg-invite-gold-soft/40 text-invite-burgundy border-invite-gold/30",
-  burgundy: "bg-invite-burgundy text-invite-cream border-invite-burgundy",
+  default:
+    "bg-invite-rose-blush text-invite-royal-purple border-invite-ivory-gold/40",
+  gold:
+    "bg-invite-champagne/60 text-invite-royal-purple border-invite-ivory-gold/50",
+  royal:
+    "bg-invite-royal-pink text-invite-ivory border-invite-royal-pink",
 };
 
 export function Badge({

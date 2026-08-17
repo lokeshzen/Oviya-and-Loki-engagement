@@ -76,15 +76,15 @@ function DetailCard({
     <motion.div initial="rest" whileHover="hover" variants={hoverLift}>
       <Card
         variant="default"
-        className="flex h-full flex-col items-center bg-white/75 text-center backdrop-blur-sm transition-shadow hover:border-invite-gold/50 hover:shadow-md"
+        className="flex h-full flex-col items-center bg-invite-ivory/80 text-center backdrop-blur-sm transition-shadow hover:border-invite-royal-pink/40 hover:shadow-md hover:shadow-invite-royal-pink/5"
       >
-        <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-invite-blush text-invite-burgundy">
+        <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-invite-rose-blush text-invite-royal-pink">
           <Icon />
         </div>
         <p className="font-body text-[0.65rem] font-medium tracking-[0.15em] text-invite-gray uppercase">
           {label}
         </p>
-        <p className="mt-2 font-display text-base font-medium leading-snug text-invite-burgundy">
+        <p className="mt-2 font-display text-base font-medium leading-snug text-invite-royal-purple">
           {value}
         </p>
       </Card>
@@ -97,7 +97,7 @@ function DetailCard({
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-gold focus-visible:ring-offset-2"
+        className="block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2"
         aria-label={`${label}: ${value} — open in maps`}
       >
         {content}

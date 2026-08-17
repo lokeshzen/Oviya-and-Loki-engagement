@@ -50,7 +50,7 @@ export function MusicToggle() {
     <button
       type="button"
       onClick={toggle}
-      className="fixed bottom-5 right-5 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-invite-gold/40 bg-white/95 text-invite-burgundy shadow-lg backdrop-blur-sm transition hover:border-invite-gold hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-gold focus-visible:ring-offset-2"
+      className="fixed bottom-5 right-5 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-invite-ivory-gold/50 bg-invite-ivory/95 text-invite-royal-purple shadow-lg shadow-invite-royal-pink/10 backdrop-blur-sm transition hover:border-invite-royal-pink hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2"
       aria-label={playing ? "Mute music" : "Play music"}
     >
       {playing ? (

@@ -16,7 +16,7 @@ export default async function Image() {
           alignItems: "center",
           justifyContent: "center",
           background:
-            "linear-gradient(160deg, #FAF7F2 0%, #F5E6E0 50%, #FAF7F2 100%)",
+            "linear-gradient(160deg, #FEFCF8 0%, #F8E8F0 50%, #FEFCF8 100%)",
           fontFamily: "Georgia, serif",
         }}
       >
@@ -28,18 +28,18 @@ export default async function Image() {
             justifyContent: "center",
             width: 900,
             height: 480,
-            background: "#FFFFFF",
+            background: "#FEFCF8",
             borderRadius: 24,
-            border: "2px solid #E8D5A3",
-            boxShadow: "0 20px 60px rgba(45, 45, 45, 0.08)",
+            border: "2px solid #E6D7B8",
+            boxShadow: "0 20px 60px rgba(107, 30, 60, 0.1)",
           }}
         >
-          <div style={{ color: "#D4A574", fontSize: 22, marginBottom: 12 }}>
+          <div style={{ color: "#B8336A", fontSize: 22, marginBottom: 12 }}>
             Murugan Thunai
           </div>
           <div
             style={{
-              color: "#6B6560",
+              color: "#7A6B7E",
               fontSize: 20,
               letterSpacing: 4,
               textTransform: "uppercase",
@@ -49,7 +49,7 @@ export default async function Image() {
           </div>
           <div
             style={{
-              color: "#7A1F2B",
+              color: "#6B1E3C",
               fontSize: 64,
               fontWeight: 500,
               marginTop: 12,
@@ -59,7 +59,7 @@ export default async function Image() {
           </div>
           <div
             style={{
-              color: "#7A1F2B",
+              color: "#6B1E3C",
               fontSize: 48,
               fontStyle: "italic",
               marginTop: 16,
@@ -67,7 +67,7 @@ export default async function Image() {
           >
             Oviya & Lokesh
           </div>
-          <div style={{ color: "#2D2D2D", fontSize: 24, marginTop: 24 }}>
+          <div style={{ color: "#3A2A3E", fontSize: 24, marginTop: 24 }}>
             September 9, 2026 · 10am · Hotel Emerald, Ranipet
           </div>
         </div>

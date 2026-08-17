@@ -15,15 +15,17 @@ export const EVENT = {
 } as const;
 
 export const COLORS = {
-  roseGold: "#D4A574",
-  burgundy: "#7A1F2B",
-  cream: "#FAF7F2",
-  gold: "#C9A227",
-  goldSoft: "#E8D5A3",
-  charcoal: "#2D2D2D",
-  gray: "#6B6560",
-  grayLight: "#A39E98",
-  blush: "#F5E6E0",
+  royalPink: "#B8336A",
+  royalPurple: "#6B1E3C",
+  ivory: "#FEFCF8",
+  ivoryGold: "#E6D7B8",
+  champagne: "#F4E8D0",
+  deepPlum: "#3A2A3E",
+  roseBlush: "#F8E8F0",
+  petalLight: "#E8A0BF",
+  petalMid: "#D4688E",
+  gray: "#7A6B7E",
+  grayLight: "#A89AAD",
 } as const;
 
 export const TIMELINE_MILESTONES = [

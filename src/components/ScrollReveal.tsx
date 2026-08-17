@@ -79,7 +79,7 @@ export function SectionHeading({
         <p
           className={cn(
             "section-eyebrow mb-2 font-body text-[0.65rem] font-semibold tracking-[0.2em] uppercase",
-            !onImage && "text-invite-rose-gold",
+            !onImage && "text-invite-royal-pink",
           )}
         >
           {eyebrow}
@@ -88,7 +88,7 @@ export function SectionHeading({
       <h2
         className={cn(
           "section-title font-display text-2xl font-medium tracking-tight sm:text-3xl",
-          !onImage && "text-invite-burgundy",
+          !onImage && "text-invite-royal-purple",
         )}
       >
         {title}

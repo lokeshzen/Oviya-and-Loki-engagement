@@ -60,7 +60,7 @@ export function ActionButtons() {
               href={EVENT.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-invite-gold/60 bg-white/85 px-5 py-3 font-body text-sm text-invite-burgundy shadow-sm backdrop-blur-sm transition hover:border-invite-gold hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-gold focus-visible:ring-offset-2 sm:flex-none"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-invite-ivory-gold/60 bg-invite-ivory/90 px-5 py-3 font-body text-sm text-invite-royal-purple shadow-sm backdrop-blur-sm transition hover:border-invite-royal-pink hover:bg-invite-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2 sm:flex-none"
               variants={hoverLift}
               initial="rest"
               whileHover="hover"
@@ -72,7 +72,7 @@ export function ActionButtons() {
               href={googleCalendarUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-invite-gold/60 bg-white/85 px-5 py-3 font-body text-sm text-invite-burgundy shadow-sm backdrop-blur-sm transition hover:border-invite-gold hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-gold focus-visible:ring-offset-2 sm:flex-none"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-invite-ivory-gold/60 bg-invite-ivory/90 px-5 py-3 font-body text-sm text-invite-royal-purple shadow-sm backdrop-blur-sm transition hover:border-invite-royal-pink hover:bg-invite-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2 sm:flex-none"
               variants={hoverLift}
               initial="rest"
               whileHover="hover"
@@ -87,7 +87,7 @@ export function ActionButtons() {
                 size="lg"
                 loading={icsLoading}
                 onClick={handleIcs}
-                className="w-full flex-1 bg-white/85 backdrop-blur-sm sm:flex-none"
+                className="w-full flex-1 bg-invite-ivory/90 backdrop-blur-sm sm:flex-none"
               >
                 <DownloadIcon />
                 Save .ics

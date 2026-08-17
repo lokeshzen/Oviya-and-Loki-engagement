@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { PetalOverlay } from "@/components/PetalOverlay";
 import { ParallaxSection } from "@/components/ParallaxSection";
 import { ScrollReveal, SectionHeading } from "@/components/ScrollReveal";
 import { Button } from "@/components/ui/Button";
@@ -119,7 +120,9 @@ export function RsvpForm() {
 
   if (status === "success") {
     return (
-      <ParallaxSection
+      <>
+        <PetalOverlay density="heavy" burst burstDurationMs={5000} />
+        <ParallaxSection
         id="rsvp"
         backgroundSrc={PALACE_IMAGES.garden}
         backgroundAlt="Royal garden pathway with traditional lamp lighting"
@@ -131,7 +134,7 @@ export function RsvpForm() {
         <div className="container-narrow">
           <ScrollReveal direction="scale">
             <Card variant="elevated" className="text-center backdrop-blur-sm">
-              <p className="font-accent text-5xl text-invite-burgundy">
+              <p className="royal-name-glow font-accent text-5xl text-invite-royal-purple">
                 Thank you!
               </p>
               <p className="mt-4 font-body text-invite-gray">
@@ -152,6 +155,7 @@ export function RsvpForm() {
           </ScrollReveal>
         </div>
       </ParallaxSection>
+      </>
     );
   }
 
@@ -182,7 +186,7 @@ export function RsvpForm() {
                   <div
                     key={s}
                     className={`h-1.5 w-8 rounded-full transition-colors ${
-                      s <= step ? "bg-invite-burgundy" : "bg-invite-gold/30"
+                      s <= step ? "bg-invite-royal-pink" : "bg-invite-champagne/60"
                     }`}
                     aria-hidden
                   />
@@ -252,8 +256,8 @@ export function RsvpForm() {
                             key={value}
                             className={`flex cursor-pointer items-center justify-center rounded-xl border px-4 py-3 font-body text-sm transition ${
                               form.attending === value
-                                ? "border-invite-burgundy bg-invite-blush text-invite-burgundy"
-                                : "border-invite-gold/30 bg-white text-invite-gray hover:border-invite-gold/50"
+                                ? "border-invite-royal-pink bg-invite-rose-blush text-invite-royal-purple"
+                                : "border-invite-ivory-gold/40 bg-invite-ivory text-invite-gray hover:border-invite-royal-pink/50"
                             }`}
                           >
                             <input
@@ -316,9 +320,9 @@ export function RsvpForm() {
                       />
                     </FieldWrapper>
 
-                    <div className="rounded-xl bg-invite-cream/80 px-4 py-3 font-body text-sm text-invite-gray">
+                    <div className="rounded-xl bg-invite-champagne/40 px-4 py-3 font-body text-sm text-invite-gray">
                       <p>
-                        <span className="font-medium text-invite-burgundy">
+                        <span className="font-medium text-invite-royal-purple">
                           {form.name}
                         </span>{" "}
                         · {form.phone}

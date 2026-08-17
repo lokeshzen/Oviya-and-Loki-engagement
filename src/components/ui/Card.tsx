@@ -8,10 +8,10 @@ type CardProps = HTMLAttributes<HTMLElement> & {
 
 const variantStyles = {
   default:
-    "border border-invite-gold/30 bg-white/90 shadow-sm backdrop-blur-sm",
+    "border border-invite-ivory-gold/40 bg-invite-ivory/95 shadow-sm backdrop-blur-sm",
   elevated:
-    "border border-invite-gold/20 bg-white shadow-lg shadow-invite-burgundy/5",
-  ghost: "border border-transparent bg-invite-blush/40",
+    "border border-invite-champagne/60 bg-invite-ivory shadow-lg shadow-invite-royal-purple/8",
+  ghost: "border border-transparent bg-invite-rose-blush/50",
 };
 
 export function Card({
@@ -55,7 +55,7 @@ export function CardTitle({
   return (
     <h2
       className={cn(
-        "font-display text-2xl font-medium tracking-tight text-invite-burgundy sm:text-3xl",
+        "font-display text-2xl font-medium tracking-tight text-invite-royal-purple sm:text-3xl",
         className
       )}
       {...props}

@@ -76,7 +76,7 @@ export function Timeline() {
         <ScrollReveal delay={0.1} direction="scale" className="mt-10">
           <Card variant="elevated" className="mx-auto max-w-md backdrop-blur-sm">
             {showCelebration ? (
-              <p className="text-center font-display text-lg text-invite-burgundy">
+              <p className="text-center font-display text-lg text-invite-royal-purple">
                 The celebration has begun!
               </p>
             ) : (
@@ -88,10 +88,10 @@ export function Timeline() {
                   {cells.map(([label, value]) => (
                     <div
                       key={label}
-                      className="rounded-xl border border-invite-gold/20 bg-invite-cream/80 px-2 py-4 text-center backdrop-blur-sm"
+                      className="rounded-xl border border-invite-ivory-gold/30 bg-invite-ivory/85 px-2 py-4 text-center backdrop-blur-sm"
                     >
                       <div
-                        className={`font-display text-2xl font-medium text-invite-burgundy tabular-nums sm:text-3xl${
+                        className={`font-display text-2xl font-medium text-invite-royal-purple tabular-nums sm:text-3xl${
                           showPlaceholder ? " opacity-40" : ""
                         }`}
                         aria-live={showCountdown ? "polite" : undefined}
@@ -126,27 +126,27 @@ export function Timeline() {
               >
                 {index < TIMELINE_MILESTONES.length - 1 && (
                   <div
-                    className="absolute left-[11px] top-6 h-[calc(100%-12px)] w-px bg-invite-gold/30"
+                    className="absolute left-[11px] top-6 h-[calc(100%-12px)] w-px bg-invite-ivory-gold/40"
                     aria-hidden
                   />
                 )}
                 <div
                   className={`relative z-10 mt-1 h-[22px] w-[22px] shrink-0 rounded-full border-2 ${
                     "highlight" in milestone && milestone.highlight
-                      ? "border-invite-burgundy bg-invite-burgundy"
-                      : "border-invite-gold bg-white"
+                      ? "border-invite-royal-pink bg-invite-royal-pink"
+                      : "border-invite-ivory-gold bg-invite-ivory"
                   }`}
                   aria-hidden
                 >
                   {"highlight" in milestone && milestone.highlight && (
-                    <span className="absolute inset-1 rounded-full bg-invite-gold-soft" />
+                    <span className="absolute inset-1 rounded-full bg-invite-champagne" />
                   )}
                 </div>
-                <div className="flex-1 rounded-xl bg-white/50 px-3 py-2 backdrop-blur-sm">
-                  <p className="font-body text-[0.65rem] tracking-[0.15em] text-invite-rose-gold uppercase">
+                <div className="flex-1 rounded-xl bg-invite-ivory/60 px-3 py-2 backdrop-blur-sm">
+                  <p className="font-body text-[0.65rem] tracking-[0.15em] text-invite-royal-pink uppercase">
                     {milestone.date}
                   </p>
-                  <h3 className="mt-0.5 font-display text-lg font-medium text-invite-burgundy">
+                  <h3 className="mt-0.5 font-display text-lg font-medium text-invite-royal-purple">
                     {milestone.label}
                   </h3>
                   <p className="mt-1 font-body text-sm leading-relaxed text-invite-gray">

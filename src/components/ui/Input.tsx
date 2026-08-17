@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { InputHTMLAttributes, TextareaHTMLAttributes, forwardRef } from "react";
 
 const fieldStyles =
-  "w-full rounded-xl border border-invite-gold/30 bg-white/90 px-4 py-3 font-body text-sm text-invite-charcoal outline-none transition-colors placeholder:text-invite-gray-light focus:border-invite-gold focus:ring-2 focus:ring-invite-gold/20";
+  "w-full rounded-xl border border-invite-ivory-gold/40 bg-invite-ivory px-4 py-3 font-body text-sm text-invite-deep-plum outline-none transition-colors placeholder:text-invite-gray-light focus:border-invite-royal-pink focus:ring-2 focus:ring-invite-royal-pink/15";
 
 type FieldWrapperProps = {
   label: string;

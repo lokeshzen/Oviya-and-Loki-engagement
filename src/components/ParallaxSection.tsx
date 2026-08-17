@@ -14,11 +14,11 @@ type OverlayTone = "cream" | "blush" | "warm" | "deep";
 
 const overlayStyles: Record<OverlayTone, string> = {
   cream:
-    "bg-gradient-to-b from-invite-cream/96 via-invite-cream/93 to-invite-cream/96",
+    "bg-gradient-to-b from-invite-ivory/96 via-invite-ivory/93 to-invite-ivory/96",
   blush:
-    "bg-gradient-to-b from-invite-cream/95 via-invite-cream/92 to-invite-blush/90",
-  warm: "bg-gradient-to-b from-invite-cream/95 via-invite-cream/91 to-invite-cream/95",
-  deep: "bg-gradient-to-b from-invite-cream/96 via-invite-cream/93 to-invite-cream/96",
+    "bg-gradient-to-b from-invite-ivory/95 via-invite-rose-blush/88 to-invite-rose-blush/92",
+  warm: "bg-gradient-to-b from-invite-ivory/95 via-invite-champagne/30 to-invite-ivory/95",
+  deep: "bg-gradient-to-b from-invite-ivory/96 via-invite-rose-blush/85 to-invite-ivory/96",
 };
 
 type ParallaxSectionProps = {

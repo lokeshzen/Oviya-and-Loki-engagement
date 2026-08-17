@@ -24,14 +24,14 @@ export function ScrollNav() {
             key={item.id}
             href={`#${item.id}`}
             className={cn(
-              "group flex items-center justify-end gap-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-gold focus-visible:ring-offset-2",
+              "group flex items-center justify-end gap-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2",
             )}
             aria-label={`Go to ${item.label}`}
             aria-current={isActive ? "true" : undefined}
           >
             <span
               className={cn(
-                "pointer-events-none rounded-full bg-invite-burgundy/90 px-2 py-0.5 font-body text-[0.6rem] tracking-wide text-white opacity-0 shadow-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100",
+                "pointer-events-none rounded-full bg-invite-royal-pink/90 px-2 py-0.5 font-body text-[0.6rem] tracking-wide text-white opacity-0 shadow-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100",
                 isActive && "opacity-100",
               )}
             >
@@ -39,8 +39,8 @@ export function ScrollNav() {
             </span>
             <span
               className={cn(
-                "block h-2 w-2 rounded-full border border-invite-gold/60 bg-white/80 transition-all duration-300",
-                isActive && "scale-125 border-invite-burgundy bg-invite-burgundy",
+                "block h-2 w-2 rounded-full border border-invite-ivory-gold/70 bg-invite-ivory/90 transition-all duration-300",
+                isActive && "scale-125 border-invite-royal-pink bg-invite-royal-pink",
               )}
               aria-hidden
             />

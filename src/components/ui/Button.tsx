@@ -12,13 +12,13 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-invite-burgundy text-invite-cream shadow-md hover:bg-invite-burgundy/90 active:scale-[0.98]",
+    "bg-invite-royal-pink text-invite-ivory shadow-md shadow-invite-royal-pink/20 hover:bg-invite-royal-purple active:scale-[0.98]",
   secondary:
-    "bg-invite-rose-gold text-white shadow-sm hover:bg-invite-rose-gold/90 active:scale-[0.98]",
+    "bg-invite-ivory-gold text-invite-royal-purple shadow-sm hover:bg-invite-champagne active:scale-[0.98]",
   outline:
-    "border border-invite-gold/60 bg-white/80 text-invite-burgundy hover:bg-white hover:border-invite-gold",
+    "border border-invite-ivory-gold/70 bg-invite-ivory/90 text-invite-royal-purple hover:border-invite-royal-pink hover:bg-white",
   ghost:
-    "text-invite-burgundy hover:bg-invite-blush/60 active:scale-[0.98]",
+    "text-invite-royal-purple hover:bg-invite-rose-blush/70 active:scale-[0.98]",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -45,7 +45,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled={disabled || loading}
       className={cn(
         "inline-flex items-center justify-center gap-2 rounded-full font-body transition-all duration-200",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-gold focus-visible:ring-offset-2 focus-visible:ring-offset-invite-cream",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2 focus-visible:ring-offset-invite-ivory",
         "disabled:pointer-events-none disabled:opacity-50",
         variantStyles[variant],
         sizeStyles[size],
