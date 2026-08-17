@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Allura, Inter, Playfair_Display } from "next/font/google";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import { EVENT } from "@/lib/event";
 import "./globals.css";
 
@@ -85,7 +86,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sendRsvpNotification, type RsvpPayload } from "@/lib/email";
 
 type RsvpBody = {
   name?: string;
@@ -39,7 +40,7 @@ export async function POST(req: NextRequest) {
   }
 
   const webhook = process.env.RSVP_WEBHOOK_URL;
-  const payload = {
+  const payload: RsvpPayload = {
     name,
     phone,
     attending,
@@ -47,6 +48,12 @@ export async function POST(req: NextRequest) {
     message,
     timestamp: new Date().toISOString(),
   };
+
+  try {
+    await sendRsvpNotification(payload);
+  } catch (err) {
+    console.error("Email notification failed", err);
+  }
 
   if (!webhook) {
     // Local / demo mode: accept without Sheet

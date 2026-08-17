@@ -1,12 +1,14 @@
 "use client";
 
-import { useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { SECTION_NAV } from "@/lib/palace-assets";
 import { useActiveSection } from "@/hooks/useScrollEffects";
+import { useSmoothScroll } from "@/components/SmoothScroll";
 import { cn } from "@/lib/utils";
 
 export function ScrollNav() {
   const reduceMotion = useReducedMotion();
+  const scroll = useSmoothScroll();
   const sectionIds = SECTION_NAV.map((item) => item.id);
   const activeId = useActiveSection(sectionIds);
 
@@ -23,9 +25,13 @@ export function ScrollNav() {
           <a
             key={item.id}
             href={`#${item.id}`}
-            className={cn(
-              "group flex items-center justify-end gap-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2",
-            )}
+            onClick={(event) => {
+              if (!scroll?.lenis) return;
+              event.preventDefault();
+              scroll.scrollTo(`#${item.id}`);
+              history.pushState(null, "", `#${item.id}`);
+            }}
+            className="group flex items-center justify-end gap-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2"
             aria-label={`Go to ${item.label}`}
             aria-current={isActive ? "true" : undefined}
           >
@@ -37,13 +43,23 @@ export function ScrollNav() {
             >
               {item.label}
             </span>
-            <span
-              className={cn(
-                "block h-2 w-2 rounded-full border border-invite-ivory-gold/70 bg-invite-ivory/90 transition-all duration-300",
-                isActive && "scale-125 border-invite-royal-pink bg-invite-royal-pink",
+            <span className="relative flex h-3 w-3 items-center justify-center">
+              {isActive && (
+                <motion.span
+                  layoutId="scroll-nav-dot"
+                  className="absolute inset-0 rounded-full bg-invite-royal-pink/25"
+                  transition={{ type: "spring", stiffness: 380, damping: 28 }}
+                />
               )}
-              aria-hidden
-            />
+              <span
+                className={cn(
+                  "block h-2 w-2 rounded-full border border-invite-ivory-gold/70 bg-invite-ivory/90 transition-all duration-300",
+                  isActive &&
+                    "scale-125 border-invite-royal-pink bg-invite-royal-pink",
+                )}
+                aria-hidden
+              />
+            </span>
           </a>
         );
       })}

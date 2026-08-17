@@ -134,13 +134,38 @@ export function RsvpForm() {
         <div className="container-narrow">
           <ScrollReveal direction="scale">
             <Card variant="elevated" className="text-center backdrop-blur-sm">
-              <p className="royal-name-glow font-accent text-5xl text-invite-royal-purple">
+              <p
+                className="text-sm font-medium uppercase tracking-[0.2em] text-invite-royal-pink"
+                role="status"
+              >
+                Details received
+              </p>
+              <p className="royal-name-glow mt-3 font-accent text-5xl text-invite-royal-purple">
                 Thank you!
               </p>
               <p className="mt-4 font-body text-invite-gray">
                 {form.attending === "yes"
-                  ? `We look forward to celebrating with you, ${form.name.split(" ")[0]}.`
-                  : `Thank you for letting us know, ${form.name.split(" ")[0]}. We'll miss you!`}
+                  ? `We've received your details, ${form.name.split(" ")[0]}. We look forward to celebrating with you.`
+                  : `We've received your details, ${form.name.split(" ")[0]}. Thank you for letting us know — we'll miss you!`}
+              </p>
+              <div className="mt-6 rounded-xl bg-invite-champagne/40 px-4 py-3 text-left font-body text-sm text-invite-gray">
+                <p>
+                  <span className="font-medium text-invite-royal-purple">
+                    {form.name}
+                  </span>{" "}
+                  · {form.phone}
+                </p>
+                <p className="mt-1">
+                  {form.attending === "yes"
+                    ? `Attending with ${form.guests} guest${form.guests > 1 ? "s" : ""}`
+                    : "Unable to attend"}
+                </p>
+                {form.message.trim() ? (
+                  <p className="mt-2 italic">“{form.message.trim()}”</p>
+                ) : null}
+              </div>
+              <p className="mt-4 font-body text-sm text-invite-gray">
+                {EVENT.bride} & {EVENT.groom} have been notified.
               </p>
               <Button
                 type="button"
@@ -170,7 +195,7 @@ export function RsvpForm() {
       borderSrc={PALACE_IMAGES.border}
     >
       <div className="container-narrow">
-        <ScrollReveal direction="right">
+        <ScrollReveal direction="3d">
           <SectionHeading
             eyebrow="RSVP"
             title="Kindly Respond"

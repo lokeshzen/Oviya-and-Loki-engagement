@@ -1,17 +1,25 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { Badge } from "@/components/ui/Badge";
 import { DecorativeBorder } from "@/components/DecorativeBorder";
+import { ScrollImageReveal } from "@/components/ScrollImageReveal";
+import { ScrollTypography } from "@/components/ScrollTypography";
 import { EVENT } from "@/lib/event";
 import { PALACE_IMAGES } from "@/lib/palace-assets";
 import { fadeUp, staggerContainer } from "@/lib/animations";
+import { shouldEnableHeavyEffects } from "@/lib/performance";
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  const [heavy, setHeavy] = useState(false);
+
+  useEffect(() => {
+    setHeavy(!reduceMotion && shouldEnableHeavyEffects());
+  }, [reduceMotion]);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -20,6 +28,8 @@ export function Hero() {
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
   const backgroundScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.2]);
+  const backgroundRotate = useTransform(scrollYProgress, [0, 1], [0, 4]);
+  const glowY = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.35]);
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
 
@@ -30,13 +40,24 @@ export function Hero() {
       className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-4 py-16 sm:px-6"
       aria-labelledby="hero-title"
     >
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
+      <div
+        className="pointer-events-none absolute inset-0"
+        aria-hidden
+        style={{ perspective: heavy ? 1200 : undefined }}
+      >
         <motion.div
-          className="absolute -inset-y-[10%] inset-x-0"
+          className="absolute -inset-y-[10%] inset-x-0 gpu-layer will-change-transform"
           style={
             reduceMotion
               ? undefined
-              : { y: backgroundY, scale: backgroundScale }
+              : heavy
+                ? {
+                    y: backgroundY,
+                    scale: backgroundScale,
+                    rotateX: backgroundRotate,
+                    transformPerspective: 1200,
+                  }
+                : { y: backgroundY, scale: backgroundScale }
           }
         >
           <Image
@@ -53,9 +74,10 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-invite-ivory/30 via-transparent to-invite-ivory/30" />
         <div className="palace-vignette absolute inset-0" />
 
-        <div
+        <motion.div
           className="absolute inset-0 animate-reveal-glow opacity-50"
           style={{
+            y: reduceMotion ? undefined : glowY,
             background:
               "radial-gradient(ellipse 70% 50% at 50% 20%, rgba(184,51,106,0.22) 0%, transparent 70%)",
           }}
@@ -80,7 +102,7 @@ export function Hero() {
           variants={fadeUp}
         >
           <div className="absolute -inset-2 rounded-full bg-gradient-to-br from-invite-champagne/70 to-invite-royal-pink/25 blur-md" />
-          <div className="relative h-full w-full overflow-hidden rounded-full border-2 border-invite-ivory-gold bg-invite-ivory shadow-lg shadow-invite-royal-pink/10">
+          <ScrollImageReveal className="relative h-full w-full overflow-hidden rounded-full border-2 border-invite-ivory-gold bg-invite-ivory shadow-lg shadow-invite-royal-pink/10">
             <Image
               src="/assets/murugan.png"
               alt="Lord Murugan with peacock — Murugan Thunai"
@@ -89,7 +111,7 @@ export function Hero() {
               sizes="144px"
               priority
             />
-          </div>
+          </ScrollImageReveal>
         </motion.div>
 
         <motion.p
@@ -99,14 +121,14 @@ export function Hero() {
           You are cordially invited to our
         </motion.p>
 
-        <motion.h1
-          id="hero-title"
-          className="royal-text-glow mt-3 font-display text-5xl font-light tracking-wide text-invite-royal-purple sm:text-6xl lg:text-7xl"
-          style={{ letterSpacing: "0.05em" }}
-          variants={fadeUp}
-        >
-          {EVENT.title}
-        </motion.h1>
+        <motion.div variants={fadeUp}>
+          <ScrollTypography
+            as="h1"
+            id="hero-title"
+            text={EVENT.title}
+            className="royal-text-glow mt-3 font-display text-5xl font-light tracking-[0.05em] text-invite-royal-purple sm:text-6xl lg:text-7xl"
+          />
+        </motion.div>
 
         <motion.div variants={fadeUp} className="my-6">
           <DecorativeBorder />

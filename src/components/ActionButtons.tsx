@@ -46,7 +46,7 @@ export function ActionButtons() {
       speed={0.25}
     >
       <div className="container-narrow">
-        <ScrollReveal direction="scale">
+        <ScrollReveal direction="3d">
           <SectionHeading
             eyebrow="Plan Your Visit"
             title="Save the Date"

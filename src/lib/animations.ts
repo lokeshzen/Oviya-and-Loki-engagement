@@ -77,7 +77,39 @@ export const revealScale: Variants = {
   },
 };
 
-export type RevealDirection = "up" | "down" | "left" | "right" | "scale" | "fade";
+export const reveal3d: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 36,
+    rotateX: 12,
+    scale: 0.97,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    scale: 1,
+    transition: { duration: 0.75, ease: easeOut },
+  },
+};
+
+export const letterReveal: Variants = {
+  hidden: { opacity: 0, y: "0.4em" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: easeOut },
+  },
+};
+
+export type RevealDirection =
+  | "up"
+  | "down"
+  | "left"
+  | "right"
+  | "scale"
+  | "fade"
+  | "3d";
 
 export const revealVariants: Record<RevealDirection, Variants> = {
   up: fadeUp,
@@ -86,6 +118,7 @@ export const revealVariants: Record<RevealDirection, Variants> = {
   right: fadeRight,
   scale: revealScale,
   fade: fadeIn,
+  "3d": reveal3d,
 };
 
 export const hoverLift = {

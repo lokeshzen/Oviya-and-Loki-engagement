@@ -7,8 +7,8 @@ import { ScrollReveal, SectionHeading } from "@/components/ScrollReveal";
 import { Card } from "@/components/ui/Card";
 import { EVENT, TIMELINE_MILESTONES } from "@/lib/event";
 import { PALACE_IMAGES } from "@/lib/palace-assets";
-import { formatCountdownValue } from "@/lib/utils";
 import { fadeUp, staggerContainer } from "@/lib/animations";
+import { ScrollCounter } from "@/components/ScrollCounter";
 
 type Parts = { days: number; hours: number; minutes: number; seconds: number };
 
@@ -73,7 +73,7 @@ export function Timeline() {
           />
         </ScrollReveal>
 
-        <ScrollReveal delay={0.1} direction="scale" className="mt-10">
+        <ScrollReveal delay={0.1} direction="3d" className="mt-10">
           <Card variant="elevated" className="mx-auto max-w-md backdrop-blur-sm">
             {showCelebration ? (
               <p className="text-center font-display text-lg text-invite-royal-purple">
@@ -97,7 +97,7 @@ export function Timeline() {
                         aria-live={showCountdown ? "polite" : undefined}
                         aria-hidden={showPlaceholder}
                       >
-                        {formatCountdownValue(value)}
+                        <ScrollCounter value={value} />
                       </div>
                       <div className="mt-1 font-body text-[0.6rem] tracking-wider text-invite-gray-light uppercase">
                         {label}

@@ -6,6 +6,7 @@ import {
   viewportOnce,
   type RevealDirection,
 } from "@/lib/animations";
+import { ScrollTypography } from "@/components/ScrollTypography";
 import { cn } from "@/lib/utils";
 
 type ScrollRevealProps = {
@@ -30,7 +31,12 @@ export function ScrollReveal({
 
   return (
     <motion.div
-      className={cn(className)}
+      className={cn(className, direction === "3d" && "gpu-layer")}
+      style={
+        direction === "3d"
+          ? { transformPerspective: 900, transformOrigin: "center bottom" }
+          : undefined
+      }
       initial="hidden"
       whileInView="visible"
       viewport={viewportOnce}
@@ -85,14 +91,14 @@ export function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <h2
+      <ScrollTypography
+        as="h2"
+        text={title}
         className={cn(
           "section-title font-display text-2xl font-medium tracking-tight sm:text-3xl",
           !onImage && "text-invite-royal-purple",
         )}
-      >
-        {title}
-      </h2>
+      />
       {description && (
         <p
           className={cn(
@@ -103,7 +109,7 @@ export function SectionHeading({
           {description}
         </p>
       )}
-      <div className="gold-divider mx-auto mt-5 w-16" />
+      <div className="gold-divider view-scale-line mx-auto mt-5 w-16" />
     </div>
   );
 }

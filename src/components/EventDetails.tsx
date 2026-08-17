@@ -37,7 +37,7 @@ export function EventDetails() {
       speed={0.3}
     >
       <div className="container-wide">
-        <ScrollReveal direction="left">
+        <ScrollReveal direction="3d">
           <SectionHeading
             eyebrow="Event Details"
             title="Join Us for the Celebration"

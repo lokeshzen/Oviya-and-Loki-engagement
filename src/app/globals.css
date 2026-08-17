@@ -32,6 +32,27 @@ html {
   scroll-behavior: smooth;
 }
 
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -217,10 +238,218 @@ body {
   text-shadow: 0 1px 1px rgba(254, 252, 248, 0.85);
 }
 
+.gpu-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@keyframes viewFadeUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes viewScaleX {
+  from {
+    transform: scaleX(0);
+    opacity: 0.2;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes viewRotate {
+  from {
+    transform: rotate(-12deg) scale(0.92);
+  }
+  to {
+    transform: rotate(12deg) scale(1);
+  }
+}
+
+@keyframes orbTravelA {
+  from {
+    transform: translate3d(0, -8vh, 0);
+  }
+  to {
+    transform: translate3d(12vw, 72vh, 0);
+  }
+}
+
+@keyframes orbTravelB {
+  from {
+    transform: translate3d(0, 10vh, 0);
+  }
+  to {
+    transform: translate3d(-10vw, 80vh, 0);
+  }
+}
+
+@keyframes blobMorph {
+  from {
+    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    border-radius: 70% 30% 42% 58% / 55% 55% 45% 45%;
+    transform: translate3d(8vw, 55vh, 0) scale(1.18);
+  }
+}
+
+@keyframes colorWash {
+  from {
+    opacity: 0.12;
+  }
+  to {
+    opacity: 0.28;
+  }
+}
+
+@keyframes footerGlow {
+  0%, 100% {
+    text-shadow: 
+      0 2px 8px rgba(184, 51, 106, 0.15),
+      0 0 24px rgba(244, 232, 208, 0.25);
+  }
+  50% {
+    text-shadow: 
+      0 2px 12px rgba(184, 51, 106, 0.25),
+      0 0 32px rgba(244, 232, 208, 0.4);
+  }
+}
+
+@keyframes footerFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+.footer-couple-glow {
+  animation: footerGlow 4s ease-in-out infinite;
+}
+
+.footer-ornament-float {
+  animation: footerFloat 3s ease-in-out infinite;
+}
+
+.footer-gradient-border {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-invite-ivory-gold) 10%,
+    var(--color-invite-royal-pink) 30%,
+    var(--color-invite-champagne) 50%,
+    var(--color-invite-royal-pink) 70%,
+    var(--color-invite-ivory-gold) 90%,
+    transparent
+  );
+  height: 2px;
+}
+
+.scroll-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(64px);
+  will-change: transform;
+}
+
+.scroll-orb-a {
+  left: -6rem;
+  top: 8%;
+  width: 18rem;
+  height: 18rem;
+  background: color-mix(in srgb, var(--color-invite-royal-pink) 42%, transparent);
+}
+
+.scroll-orb-b {
+  right: -7rem;
+  top: 18%;
+  width: 16rem;
+  height: 16rem;
+  background: color-mix(in srgb, var(--color-invite-ivory-gold) 55%, transparent);
+}
+
+.scroll-blob {
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  width: 14rem;
+  height: 14rem;
+  margin-left: -7rem;
+  background: color-mix(in srgb, var(--color-invite-royal-purple) 18%, transparent);
+  filter: blur(48px);
+  will-change: transform, border-radius;
+}
+
+.view-scale-line {
+  transform-origin: center;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-orb-a {
+    animation: orbTravelA linear both;
+    animation-timeline: scroll(root);
+  }
+
+  .scroll-orb-b {
+    animation: orbTravelB linear both;
+    animation-timeline: scroll(root);
+  }
+
+  .scroll-blob {
+    animation: blobMorph linear both;
+    animation-timeline: scroll(root);
+  }
+
+  .scroll-color-wash {
+    animation: colorWash linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .view-fade-up {
+    animation: viewFadeUp linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 32%;
+  }
+
+  .view-scale-line {
+    animation: viewScaleX linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
+
+  .view-rotate-slow {
+    animation: viewRotate linear both;
+    animation-timeline: view();
+    animation-range: entry 0% exit 100%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-float-soft,
   .animate-reveal-glow,
-  .animate-petal-fall {
+  .animate-petal-fall,
+  .scroll-orb-a,
+  .scroll-orb-b,
+  .scroll-blob,
+  .scroll-color-wash,
+  .view-fade-up,
+  .view-scale-line,
+  .view-rotate-slow,
+  .footer-couple-glow,
+  .footer-ornament-float {
     animation: none;
   }
 }
