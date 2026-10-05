@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ParallaxSection } from "@/components/ParallaxSection";
 import { ScrollReveal, SectionHeading } from "@/components/ScrollReveal";
+import { TempleCurtain } from "@/components/TempleCurtain";
 import { Card } from "@/components/ui/Card";
 import { Kuthuvilakku } from "@/components/Kuthuvilakku";
 import { EVENT, FAMILY, RECEPTION } from "@/lib/event";
@@ -29,24 +29,19 @@ const ceremonies = [
 
 export function EventDetails() {
   return (
-    <ParallaxSection
-      id="details"
-      overlay="warm"
-      speed={0.3}
-    >
-      <div className="container-wide">
-        <ScrollReveal direction="3d">
+    <section id="details" className="relative">
+      <TempleCurtain>
+        <div className="container-wide flex flex-col items-center gap-8">
           <SectionHeading
             eyebrow="Event Details"
             title="Join Us for the Celebration"
           />
-        </ScrollReveal>
-
-        <ScrollReveal delay={0.05} className="mt-10">
           <FamilyInvitation />
-        </ScrollReveal>
+        </div>
+      </TempleCurtain>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
+      <div className="section-padding bg-gradient-to-b from-invite-ivory via-invite-champagne/45 to-invite-ivory">
+        <div className="container-wide grid gap-4 sm:grid-cols-2">
           {ceremonies.map((ceremony, index) => (
             <ScrollReveal
               key={ceremony.label}
@@ -58,7 +53,7 @@ export function EventDetails() {
           ))}
         </div>
       </div>
-    </ParallaxSection>
+    </section>
   );
 }
 

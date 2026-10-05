@@ -63,7 +63,7 @@ html.lenis body {
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -605,5 +605,27 @@ body {
   .hero-spark,
   .kuthuvilakku-flame {
     animation: none;
+  }
+
+  .temple-curtain {
+    height: auto;
+  }
+
+  .temple-curtain-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+
+  .temple-curtain-panel {
+    display: none;
+  }
+
+  .temple-curtain-content {
+    height: auto;
+    overflow: visible;
+    padding-block: clamp(3rem, 8vw, 5rem);
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

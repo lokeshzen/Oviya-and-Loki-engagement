@@ -66,13 +66,20 @@ export function SectionHeading({
   description,
   className,
   onImage = true,
+  animated = true,
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   className?: string;
   onImage?: boolean;
+  animated?: boolean;
 }) {
+  const titleClassName = cn(
+    "section-title font-display text-2xl font-medium tracking-tight sm:text-3xl",
+    !onImage && "text-invite-royal-purple",
+  );
+
   return (
     <div
       className={cn(
@@ -91,14 +98,11 @@ export function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <ScrollTypography
-        as="h2"
-        text={title}
-        className={cn(
-          "section-title font-display text-2xl font-medium tracking-tight sm:text-3xl",
-          !onImage && "text-invite-royal-purple",
-        )}
-      />
+      {animated ? (
+        <ScrollTypography as="h2" text={title} className={titleClassName} />
+      ) : (
+        <h2 className={titleClassName}>{title}</h2>
+      )}
       {description && (
         <p
           className={cn(

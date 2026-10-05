@@ -29,7 +29,7 @@ export default function HomePage() {
       <ScrollProgress />
       <ScrollNav />
 
-      <main className="relative min-h-dvh overflow-x-hidden bg-invite-ivory">
+      <main className="relative min-h-dvh bg-invite-ivory">
         <Hero />
         <SectionTransition />
         <Timeline />
