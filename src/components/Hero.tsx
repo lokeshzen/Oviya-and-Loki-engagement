@@ -1,10 +1,16 @@
 "use client";
 
-import { useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { AmpersandMedallion, DecorativeBorder } from "@/components/DecorativeBorder";
+import { HeroCurtain } from "@/components/HeroCurtain";
 import { PeacockCrest } from "@/components/PeacockCrest";
+import { useSmoothScroll } from "@/components/SmoothScroll";
 import { EVENT } from "@/lib/event";
+import { cn } from "@/lib/utils";
+
+const CURTAIN_SEQUENCE_MS = 2000;
+const CURTAIN_FALLBACK_MS = 8000;
 
 const NAME_SPARKS = [
   { top: "4%", left: "6%", delay: "2.05s", size: 3 },
@@ -39,7 +45,69 @@ function NameSparks() {
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
+  const scroll = useSmoothScroll();
   const sectionRef = useRef<HTMLElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [curtainMounted, setCurtainMounted] = useState(true);
+
+  const skipCurtain = reduceMotion === true;
+
+  const open = useCallback(() => {
+    setIsOpen(true);
+  }, []);
+
+  useEffect(() => {
+    if (skipCurtain) {
+      setIsOpen(true);
+      setCurtainMounted(false);
+    }
+  }, [skipCurtain]);
+
+  useEffect(() => {
+    if (skipCurtain || isOpen) return;
+
+    const onIntent = () => open();
+    window.addEventListener("wheel", onIntent, { passive: true });
+    window.addEventListener("touchmove", onIntent, { passive: true });
+
+    return () => {
+      window.removeEventListener("wheel", onIntent);
+      window.removeEventListener("touchmove", onIntent);
+    };
+  }, [isOpen, open, skipCurtain]);
+
+  useEffect(() => {
+    if (skipCurtain || isOpen) return;
+    const id = window.setTimeout(open, CURTAIN_FALLBACK_MS);
+    return () => window.clearTimeout(id);
+  }, [isOpen, open, skipCurtain]);
+
+  useEffect(() => {
+    if (skipCurtain) return;
+
+    const lenis = scroll?.lenis;
+    if (!isOpen) {
+      document.documentElement.classList.add("hero-curtain-locked");
+      lenis?.stop();
+      return () => {
+        document.documentElement.classList.remove("hero-curtain-locked");
+        lenis?.start();
+      };
+    }
+
+    document.documentElement.classList.add("hero-curtain-locked");
+    lenis?.stop();
+    const id = window.setTimeout(() => {
+      document.documentElement.classList.remove("hero-curtain-locked");
+      lenis?.start();
+    }, CURTAIN_SEQUENCE_MS);
+
+    return () => {
+      window.clearTimeout(id);
+      document.documentElement.classList.remove("hero-curtain-locked");
+      lenis?.start();
+    };
+  }, [isOpen, skipCurtain, scroll?.lenis]);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -54,9 +122,20 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="hero"
-      className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-4 py-16 sm:px-6"
+      className={cn(
+        "relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-4 py-16 sm:px-6",
+        isOpen && "hero-revealed",
+      )}
       aria-labelledby="hero-title"
     >
+      {curtainMounted ? (
+        <HeroCurtain
+          isOpen={isOpen}
+          onOpen={open}
+          onExited={() => setCurtainMounted(false)}
+        />
+      ) : null}
+
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute inset-0 bg-invite-ivory" />
         <div className="absolute inset-0 bg-gradient-to-b from-invite-rose-blush/55 via-invite-ivory to-invite-champagne/40" />
@@ -74,8 +153,20 @@ export function Hero() {
       <motion.div
         className="relative z-10 mx-auto w-full max-w-md text-center"
         style={reduceMotion ? undefined : { opacity: contentOpacity, y: contentY }}
+        {...(!isOpen ? { inert: true } : {})}
       >
-        <PeacockCrest />
+        <motion.div
+          className="flex flex-col items-center"
+          initial={false}
+          animate={{ scale: isOpen ? 1 : 0.96 }}
+          transition={
+            isOpen && !skipCurtain
+              ? { delay: 1.2, duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+              : { duration: 0 }
+          }
+        >
+          <PeacockCrest />
+        </motion.div>
 
         <p className="hero-enter hero-enter-delay-1 font-label text-xs font-medium tracking-[0.25em] text-invite-gray uppercase">
           You are cordially invited to our {EVENT.title}
@@ -118,9 +209,9 @@ export function Hero() {
 
       <motion.div
         className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.4, duration: 0.8 }}
+        initial={false}
+        animate={{ opacity: isOpen ? 1 : 0 }}
+        transition={{ delay: isOpen && !skipCurtain ? 2.4 : 0, duration: 0.8 }}
         aria-hidden
       >
         <div className="h-8 w-px bg-gradient-to-b from-invite-ivory-gold/70 to-transparent" />

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Allura, Cormorant_Garamond, Inter, Playfair_Display } from "next/font/google";
+import { Allura, Cinzel, Cormorant_Garamond, Inter, Playfair_Display } from "next/font/google";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { EVENT } from "@/lib/event";
 import "./globals.css";
@@ -20,6 +20,13 @@ const allura = Allura({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-allura",
+  display: "swap",
+});
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  variable: "--font-cinzel",
   display: "swap",
 });
 
@@ -87,7 +94,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${playfair.variable} ${inter.variable} ${allura.variable} ${cormorant.variable} font-body antialiased`}
+        className={`${playfair.variable} ${inter.variable} ${allura.variable} ${cormorant.variable} ${cinzel.variable} font-body antialiased`}
       >
         <script
           type="application/ld+json"

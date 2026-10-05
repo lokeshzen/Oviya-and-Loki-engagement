@@ -27,6 +27,7 @@
   --font-body: var(--font-cormorant);
   --font-label: var(--font-inter);
   --font-accent: var(--font-allura);
+  --font-monogram: var(--font-cinzel);
 }
 
 html {
@@ -112,6 +113,32 @@ body {
   }
 }
 
+@keyframes curtainPetalFall {
+  0% {
+    top: -18%;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  7% {
+    opacity: 0.92;
+  }
+  86% {
+    opacity: 0.78;
+  }
+  100% {
+    top: 112%;
+    transform: translate3d(var(--drift, 18px), 0, 0) rotate(280deg);
+    opacity: 0.12;
+  }
+}
+
+.animate-curtain-petal-fall {
+  animation-name: curtainPetalFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
 @keyframes heroEnter {
   from {
     opacity: 0;
@@ -123,24 +150,51 @@ body {
   }
 }
 
-.hero-enter {
+.hero-revealed .hero-enter {
   animation: heroEnter 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.hero-enter-delay-1 {
-  animation-delay: 1.15s;
+.hero-revealed .hero-enter-delay-1,
+.hero-revealed .hero-enter-delay-2,
+.hero-revealed .hero-enter-delay-3 {
+  animation-delay: 1.5s;
 }
 
-.hero-enter-delay-2 {
-  animation-delay: 1.45s;
+.hero-revealed .hero-enter-delay-4 {
+  animation-delay: 2s;
 }
 
-.hero-enter-delay-3 {
-  animation-delay: 1.75s;
+html.hero-curtain-locked,
+html.hero-curtain-locked body {
+  overflow: hidden;
 }
 
-.hero-enter-delay-4 {
-  animation-delay: 2.15s;
+.hero-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+}
+
+.hero-curtain-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: calc(50% + 2px);
+  overflow: hidden;
+  will-change: transform;
+}
+
+.hero-curtain-panel-left {
+  left: 0;
+  box-shadow: 10px 0 28px rgba(6, 30, 58, 0.12);
+}
+
+.hero-curtain-panel-right {
+  right: 0;
+  box-shadow: -10px 0 28px rgba(6, 30, 58, 0.12);
 }
 
 .gold-shimmer {
@@ -196,6 +250,19 @@ body {
     0 3px 10px rgba(6, 30, 58, 0.28),
     0 0 32px rgba(11, 58, 106, 0.18);
   filter: drop-shadow(0 1px 3px rgba(201, 162, 39, 0.35));
+}
+
+.curtain-monogram {
+  filter:
+    drop-shadow(0 16px 36px rgba(6, 30, 58, 0.22))
+    drop-shadow(0 0 42px rgba(201, 162, 39, 0.32));
+}
+
+.curtain-monogram-letter {
+  text-shadow:
+    0 1px 0 rgba(201, 162, 39, 0.85),
+    0 10px 22px rgba(6, 30, 58, 0.28),
+    0 0 36px rgba(201, 162, 39, 0.45);
 }
 
 .section-padding {
@@ -480,27 +547,32 @@ body {
   }
 }
 
-.peacock-crest {
-  animation: heroEnter 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
-}
-
 .peacock-feather-open {
   transform-box: view-box;
   transform-origin: 180px 196px;
   transform: rotate(var(--fan));
-  animation: featherOpen 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both;
+}
+
+.hero-revealed .peacock-feather-open {
+  animation: featherOpen 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.2s both;
 }
 
 .peacock-feather-breathe {
   transform-box: view-box;
   transform-origin: 180px 196px;
-  animation: featherBreathe 5s ease-in-out 1.8s infinite;
+}
+
+.hero-revealed .peacock-feather-breathe {
+  animation: featherBreathe 5s ease-in-out 2.1s infinite;
 }
 
 .peacock-head {
   transform-box: view-box;
   transform-origin: 180px 148px;
-  animation: peacockHead 5.5s ease-in-out 1.8s infinite;
+}
+
+.hero-revealed .peacock-head {
+  animation: peacockHead 5.5s ease-in-out 2.1s infinite;
 }
 
 @keyframes peacockHead {
@@ -586,6 +658,7 @@ body {
   .animate-float-soft,
   .animate-reveal-glow,
   .animate-petal-fall,
+  .animate-curtain-petal-fall,
   .animate-petal-sway,
   .scroll-orb-a,
   .scroll-orb-b,
@@ -597,14 +670,22 @@ body {
   .footer-couple-glow,
   .footer-ornament-float,
   .hero-enter,
+  .hero-revealed .hero-enter,
   .peacock-crest,
   .peacock-feather-open,
+  .hero-revealed .peacock-feather-open,
   .peacock-feather-breathe,
+  .hero-revealed .peacock-feather-breathe,
   .peacock-head,
+  .hero-revealed .peacock-head,
   .lotus-bloom,
   .hero-spark,
   .kuthuvilakku-flame {
     animation: none;
+  }
+
+  .hero-curtain {
+    display: none;
   }
 
   .temple-curtain {
