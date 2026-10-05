@@ -63,13 +63,13 @@ export default async function Image() {
               marginTop: 16,
             }}
           >
-            {EVENT.bride} & {EVENT.groom}
+            {`${EVENT.bride} & ${EVENT.groom}`}
           </div>
           <div style={{ color: "#061E3A", fontSize: 22, marginTop: 24 }}>
-            Reception · {RECEPTION.dateLabel} · {RECEPTION.timeLabel}
+            {`Reception · ${RECEPTION.dateLabel} · ${RECEPTION.timeLabel}`}
           </div>
           <div style={{ color: "#061E3A", fontSize: 22, marginTop: 8 }}>
-            Wedding · {EVENT.dateLabel} · {EVENT.timeLabel}
+            {`Wedding · ${EVENT.dateLabel} · ${EVENT.timeLabel}`}
           </div>
           <div style={{ color: "#4A5A6E", fontSize: 20, marginTop: 12 }}>
             {EVENT.venueHall}
