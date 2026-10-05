@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Oviya & Lokesh — Engagement Invitation";
+export const alt = "Oviya & Lokesh — Wedding Invitation";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -16,7 +16,7 @@ export default async function Image() {
           alignItems: "center",
           justifyContent: "center",
           background:
-            "linear-gradient(160deg, #FEFCF8 0%, #F8E8F0 50%, #FEFCF8 100%)",
+            "linear-gradient(160deg, #FEFCF8 0%, #E7EEF6 50%, #FEFCF8 100%)",
           fontFamily: "Georgia, serif",
         }}
       >
@@ -27,19 +27,16 @@ export default async function Image() {
             alignItems: "center",
             justifyContent: "center",
             width: 900,
-            height: 480,
+            height: 500,
             background: "#FEFCF8",
             borderRadius: 24,
-            border: "2px solid #E6D7B8",
-            boxShadow: "0 20px 60px rgba(107, 30, 60, 0.1)",
+            border: "2px solid #C9A227",
+            boxShadow: "0 20px 60px rgba(11, 58, 106, 0.12)",
           }}
         >
-          <div style={{ color: "#B8336A", fontSize: 22, marginBottom: 12 }}>
-            Murugan Thunai
-          </div>
           <div
             style={{
-              color: "#7A6B7E",
+              color: "#4A5A6E",
               fontSize: 20,
               letterSpacing: 4,
               textTransform: "uppercase",
@@ -49,17 +46,17 @@ export default async function Image() {
           </div>
           <div
             style={{
-              color: "#6B1E3C",
+              color: "#061E3A",
               fontSize: 64,
               fontWeight: 500,
               marginTop: 12,
             }}
           >
-            Engagement
+            Wedding
           </div>
           <div
             style={{
-              color: "#6B1E3C",
+              color: "#0B3A6A",
               fontSize: 48,
               fontStyle: "italic",
               marginTop: 16,
@@ -67,8 +64,14 @@ export default async function Image() {
           >
             Oviya & Lokesh
           </div>
-          <div style={{ color: "#3A2A3E", fontSize: 24, marginTop: 24 }}>
-            September 9, 2026 · 10am · Hotel Emerald, Ranipet
+          <div style={{ color: "#061E3A", fontSize: 22, marginTop: 24 }}>
+            Reception · November 14, 2026 · 7:00 pm
+          </div>
+          <div style={{ color: "#061E3A", fontSize: 22, marginTop: 8 }}>
+            Wedding · November 15, 2026 · 6:00–7:30 am
+          </div>
+          <div style={{ color: "#4A5A6E", fontSize: 20, marginTop: 12 }}>
+            Rangalaya Royal, Katpadi, Vellore
           </div>
         </div>
       </div>

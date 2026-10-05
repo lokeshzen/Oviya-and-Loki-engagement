@@ -1,15 +1,16 @@
 export const COLORS = {
-  royalPink: "#B8336A",
-  royalPurple: "#6B1E3C",
+  royalPink: "#0B3A6A",
+  royalPurple: "#061E3A",
   ivory: "#FEFCF8",
-  ivoryGold: "#E6D7B8",
-  champagne: "#F4E8D0",
-  deepPlum: "#3A2A3E",
-  roseBlush: "#F8E8F0",
-  petalLight: "#E8A0BF",
-  petalMid: "#D4688E",
-  gray: "#7A6B7E",
-  grayLight: "#A89AAD",
+  ivoryGold: "#C9A227",
+  champagne: "#F3E6C4",
+  deepPlum: "#061E3A",
+  roseBlush: "#E7EEF6",
+  petalLight: "#F3E6C4",
+  petalMid: "#0B3A6A",
+  gold: "#C9A227",
+  gray: "#4A5A6E",
+  grayLight: "#5F6E80",
 } as const;
 
 export type PetalConfig = {
@@ -28,10 +29,10 @@ function seeded(index: number, salt: number): number {
   return x - Math.floor(x);
 }
 
-const PETAL_COLORS = [
-  COLORS.petalLight,
+const FEATHER_COLORS = [
+  COLORS.champagne,
   COLORS.petalMid,
-  COLORS.royalPink,
+  COLORS.gold,
 ] as const;
 
 export function getPetalConfig(index: number, total: number): PetalConfig {
@@ -41,8 +42,8 @@ export function getPetalConfig(index: number, total: number): PetalConfig {
     delay: seeded(index, 2) * 10,
     duration: 10 + seeded(index, 3) * 10,
     drift: (seeded(index, 4) - 0.5) * 100,
-    size: 7 + seeded(index, 5) * 11,
-    color: PETAL_COLORS[index % PETAL_COLORS.length],
+    size: 10 + seeded(index, 5) * 14,
+    color: FEATHER_COLORS[index % FEATHER_COLORS.length],
     rotation: seeded(index, 6) * 360,
     swayDuration: 3 + seeded(index, 7) * 4,
   };

@@ -37,7 +37,7 @@ export function ScrollNav() {
           >
             <span
               className={cn(
-                "pointer-events-none rounded-full bg-invite-royal-pink/90 px-2 py-0.5 font-body text-[0.6rem] tracking-wide text-white opacity-0 shadow-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100",
+                "pointer-events-none rounded-full bg-invite-royal-pink/90 px-2 py-0.5 font-label text-[0.7rem] tracking-wide text-white opacity-0 shadow-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100",
                 isActive && "opacity-100",
               )}
             >

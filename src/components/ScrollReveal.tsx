@@ -84,7 +84,7 @@ export function SectionHeading({
       {eyebrow && (
         <p
           className={cn(
-            "section-eyebrow mb-2 font-body text-[0.65rem] font-semibold tracking-[0.2em] uppercase",
+            "section-eyebrow mb-2 font-label text-[0.7rem] font-semibold tracking-[0.2em] uppercase",
             !onImage && "text-invite-royal-pink",
           )}
         >
@@ -102,7 +102,7 @@ export function SectionHeading({
       {description && (
         <p
           className={cn(
-            "section-description mx-auto mt-3 max-w-sm font-body text-sm leading-relaxed",
+            "section-description mx-auto mt-3 max-w-sm font-body text-lg leading-relaxed",
             !onImage && "text-invite-gray",
           )}
         >

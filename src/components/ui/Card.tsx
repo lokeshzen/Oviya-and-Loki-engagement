@@ -73,7 +73,7 @@ export function CardDescription({
   return (
     <p
       className={cn(
-        "mt-2 font-body text-sm leading-relaxed text-invite-gray",
+        "mt-2 font-body text-base leading-relaxed text-invite-gray",
         className
       )}
       {...props}

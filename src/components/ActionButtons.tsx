@@ -1,14 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ParallaxSection } from "@/components/ParallaxSection";
 import { ScrollReveal, SectionHeading } from "@/components/ScrollReveal";
-import { Button } from "@/components/ui/Button";
-import { downloadIcs, googleCalendarUrl } from "@/lib/calendar";
-import { EVENT } from "@/lib/event";
-import { PALACE_IMAGES } from "@/lib/palace-assets";
+import {
+  downloadIcs,
+  googleCalendarReceptionUrl,
+  googleCalendarUrl,
+} from "@/lib/calendar";
+import { EVENT, RECEPTION } from "@/lib/event";
 import { hoverLift } from "@/lib/animations";
+
+const outlineButtonClass =
+  "inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-invite-ivory-gold/60 bg-invite-ivory/90 px-5 py-3 font-label text-sm text-invite-royal-purple shadow-sm backdrop-blur-sm transition hover:border-invite-royal-pink hover:bg-invite-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2 sm:flex-none";
 
 export function ActionButtons() {
   const [icsLoading, setIcsLoading] = useState(false);
@@ -22,7 +28,7 @@ export function ActionButtons() {
   const handleShare = async () => {
     const shareData = {
       title: `${EVENT.bride} & ${EVENT.groom} — ${EVENT.title}`,
-      text: `You're invited! ${EVENT.dateLabel} · ${EVENT.timeLabel} · ${EVENT.venue}`,
+      text: `You're invited! Reception ${RECEPTION.dateLabel} · ${RECEPTION.timeLabel}. Wedding ${EVENT.dateLabel} · ${EVENT.timeLabel}. ${EVENT.venue}`,
       url: window.location.href,
     };
 
@@ -40,8 +46,6 @@ export function ActionButtons() {
   return (
     <ParallaxSection
       id="actions"
-      backgroundSrc={PALACE_IMAGES.garden}
-      backgroundAlt="Royal garden pathway with traditional lamps"
       overlay="deep"
       speed={0.25}
     >
@@ -50,7 +54,7 @@ export function ActionButtons() {
           <SectionHeading
             eyebrow="Plan Your Visit"
             title="Save the Date"
-            description="Add the event to your calendar or get directions to the venue."
+            description="Add both celebrations to your calendar or get directions to the venue."
           />
         </ScrollReveal>
 
@@ -60,7 +64,7 @@ export function ActionButtons() {
               href={EVENT.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-invite-ivory-gold/60 bg-invite-ivory/90 px-5 py-3 font-body text-sm text-invite-royal-purple shadow-sm backdrop-blur-sm transition hover:border-invite-royal-pink hover:bg-invite-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2 sm:flex-none"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-invite-royal-pink px-5 py-3 font-label text-sm text-invite-ivory shadow-md shadow-invite-royal-pink/20 transition hover:bg-invite-royal-purple focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2 sm:flex-none"
               variants={hoverLift}
               initial="rest"
               whileHover="hover"
@@ -72,34 +76,67 @@ export function ActionButtons() {
               href={googleCalendarUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-invite-ivory-gold/60 bg-invite-ivory/90 px-5 py-3 font-body text-sm text-invite-royal-purple shadow-sm backdrop-blur-sm transition hover:border-invite-royal-pink hover:bg-invite-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2 sm:flex-none"
+              className={outlineButtonClass}
               variants={hoverLift}
               initial="rest"
               whileHover="hover"
             >
               <CalendarIcon />
-              Google Calendar
+              Add Wedding
             </motion.a>
-            <motion.div variants={hoverLift} initial="rest" whileHover="hover">
-              <Button
-                type="button"
-                variant="outline"
-                size="lg"
-                loading={icsLoading}
-                onClick={handleIcs}
-                className="w-full flex-1 bg-invite-ivory/90 backdrop-blur-sm sm:flex-none"
-              >
-                <DownloadIcon />
-                Save .ics
-              </Button>
-            </motion.div>
+            <motion.a
+              href={googleCalendarReceptionUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={outlineButtonClass}
+              variants={hoverLift}
+              initial="rest"
+              whileHover="hover"
+            >
+              <CalendarIcon />
+              Add Reception
+            </motion.a>
           </div>
         </ScrollReveal>
 
-        <ScrollReveal delay={0.15} className="mt-4 text-center">
-          <Button type="button" variant="ghost" size="sm" onClick={handleShare}>
+        <ScrollReveal delay={0.15} className="mt-8">
+          <div className="mx-auto flex max-w-[14rem] flex-col items-center rounded-2xl border border-invite-ivory-gold/70 bg-invite-ivory/95 p-4 shadow-sm backdrop-blur-sm">
+            <Image
+              src={EVENT.venueQr}
+              alt="QR code to open Rangalaya Royal, Katpadi, Vellore in maps"
+              width={220}
+              height={220}
+              className="h-auto w-full rounded-md"
+            />
+            <p className="mt-3 font-label text-[0.7rem] font-medium tracking-[0.18em] text-invite-royal-pink uppercase">
+              Scan for location
+            </p>
+            <p className="mt-1 text-center font-body text-base text-invite-gray">
+              {EVENT.venue}
+            </p>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.2} className="mt-5 flex flex-col items-center gap-3">
+          <motion.button
+            type="button"
+            onClick={handleShare}
+            className={outlineButtonClass}
+            variants={hoverLift}
+            initial="rest"
+            whileHover="hover"
+          >
+            <ShareIcon />
             Share Invitation
-          </Button>
+          </motion.button>
+          <button
+            type="button"
+            onClick={handleIcs}
+            disabled={icsLoading}
+            className="font-label text-xs tracking-[0.12em] text-invite-royal-purple underline-offset-4 transition hover:text-invite-royal-pink hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2 disabled:opacity-50"
+          >
+            {icsLoading ? "Saving…" : "Save .ics"}
+          </button>
         </ScrollReveal>
       </div>
     </ParallaxSection>
@@ -124,10 +161,13 @@ function CalendarIcon() {
   );
 }
 
-function DownloadIcon() {
+function ShareIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-      <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
+      <circle cx="18" cy="5" r="2.4" />
+      <circle cx="6" cy="12" r="2.4" />
+      <circle cx="18" cy="19" r="2.4" />
+      <path d="M8.2 13.1 15.8 17.4M15.8 6.6 8.2 10.9" />
     </svg>
   );
 }

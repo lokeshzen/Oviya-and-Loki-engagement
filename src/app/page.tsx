@@ -3,9 +3,7 @@
 import { ActionButtons } from "@/components/ActionButtons";
 import { EventDetails } from "@/components/EventDetails";
 import { Hero } from "@/components/Hero";
-import { MusicToggle } from "@/components/MusicToggle";
 import { RosePetals } from "@/components/RosePetals";
-import { RsvpForm } from "@/components/RsvpForm";
 import { ScrollDrivenElements } from "@/components/ScrollDrivenElements";
 import { ScrollNav } from "@/components/ScrollNav";
 import { ScrollProgress } from "@/components/ScrollProgress";
@@ -39,8 +37,6 @@ export default function HomePage() {
         <EventDetails />
         <SectionTransition />
         <ActionButtons />
-        <SectionTransition />
-        <RsvpForm />
 
         <footer className="relative border-t border-invite-ivory-gold/30 bg-invite-ivory/95 backdrop-blur-sm overflow-hidden">
           {/* Background decoration */}
@@ -59,6 +55,9 @@ export default function HomePage() {
                 <h3 className="font-accent text-4xl sm:text-5xl text-invite-royal-pink footer-couple-glow">
                   {EVENT.bride} & {EVENT.groom}
                 </h3>
+                <p className="font-label text-xs tracking-[0.16em] text-invite-royal-purple uppercase">
+                  14 & 15 November 2026
+                </p>
               </div>
               
               {/* Bottom decorative element */}
@@ -68,7 +67,7 @@ export default function HomePage() {
                   <span className="text-invite-royal-pink text-sm">♡</span>
                   <div className="h-px w-8 bg-invite-ivory-gold/40" />
                 </div>
-                <p className="font-body text-xs tracking-wider text-invite-gray-light/70">
+                <p className="font-body text-base tracking-wider text-invite-gray-light">
                   Crafted with love for our special day
                 </p>
               </div>
@@ -80,7 +79,6 @@ export default function HomePage() {
         </footer>
       </main>
 
-      <MusicToggle />
     </>
   );
 }

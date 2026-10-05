@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Allura, Inter, Playfair_Display } from "next/font/google";
+import { Allura, Cormorant_Garamond, Inter, Playfair_Display } from "next/font/google";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { EVENT } from "@/lib/event";
 import "./globals.css";
@@ -20,6 +20,13 @@ const allura = Allura({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-allura",
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+  variable: "--font-cormorant",
   display: "swap",
 });
 
@@ -69,7 +76,7 @@ const structuredData = {
     name: EVENT.venue,
     address: EVENT.venue,
   },
-  description: `Engagement celebration of ${EVENT.bride} and ${EVENT.groom}.`,
+  description: `Wedding celebration of ${EVENT.bride} and ${EVENT.groom}.`,
 };
 
 export default function RootLayout({
@@ -80,7 +87,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${playfair.variable} ${inter.variable} ${allura.variable} font-body antialiased`}
+        className={`${playfair.variable} ${inter.variable} ${allura.variable} ${cormorant.variable} font-body antialiased`}
       >
         <script
           type="application/ld+json"
