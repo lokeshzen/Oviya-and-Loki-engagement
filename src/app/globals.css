@@ -105,10 +105,10 @@ body {
 @keyframes petalSway {
   0%,
   100% {
-    margin-left: 0;
+    transform: rotate(-3deg);
   }
   50% {
-    margin-left: 12px;
+    transform: rotate(3deg);
   }
 }
 
@@ -128,15 +128,19 @@ body {
 }
 
 .hero-enter-delay-1 {
-  animation-delay: 0.1s;
+  animation-delay: 1.15s;
 }
 
 .hero-enter-delay-2 {
-  animation-delay: 0.2s;
+  animation-delay: 1.45s;
 }
 
 .hero-enter-delay-3 {
-  animation-delay: 0.32s;
+  animation-delay: 1.75s;
+}
+
+.hero-enter-delay-4 {
+  animation-delay: 2.15s;
 }
 
 .gold-shimmer {
@@ -165,10 +169,20 @@ body {
 }
 
 .animate-petal-fall {
-  animation-name: petalFall, petalSway;
-  animation-timing-function: linear, ease-in-out;
-  animation-iteration-count: infinite, infinite;
+  animation-name: petalFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
   animation-fill-mode: both;
+}
+
+.animate-petal-sway {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  animation-name: petalSway;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
 }
 
 .royal-text-glow {
@@ -466,10 +480,113 @@ body {
   }
 }
 
+.peacock-crest {
+  animation: heroEnter 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+}
+
+.peacock-feather-open {
+  transform-box: view-box;
+  transform-origin: 180px 196px;
+  transform: rotate(var(--fan));
+  animation: featherOpen 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both;
+}
+
+.peacock-feather-breathe {
+  transform-box: view-box;
+  transform-origin: 180px 196px;
+  animation: featherBreathe 5s ease-in-out 1.8s infinite;
+}
+
+.peacock-head {
+  transform-box: view-box;
+  transform-origin: 180px 148px;
+  animation: peacockHead 5.5s ease-in-out 1.8s infinite;
+}
+
+@keyframes peacockHead {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4.5deg);
+  }
+}
+
+@keyframes featherOpen {
+  from {
+    transform: rotate(calc(var(--fan) * 0.35));
+  }
+  to {
+    transform: rotate(var(--fan));
+  }
+}
+
+@keyframes featherBreathe {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(var(--breath));
+  }
+}
+
+.lotus-bloom {
+  transform-box: view-box;
+  transform-origin: 160px 18px;
+  animation: lotusBloom 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.45s both;
+}
+
+@keyframes lotusBloom {
+  from {
+    transform: scale(0.92);
+    opacity: 0.45;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.hero-spark {
+  position: absolute;
+  border-radius: 999px;
+  background: var(--color-invite-ivory-gold);
+  box-shadow: 0 0 6px rgba(201, 162, 39, 0.65);
+  animation: sparkPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes sparkPulse {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+.kuthuvilakku-flame {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: flameFlicker 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes flameFlicker {
+  from {
+    transform: scaleY(0.92) rotate(-2deg);
+  }
+  to {
+    transform: scaleY(1.06) rotate(2deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-float-soft,
   .animate-reveal-glow,
   .animate-petal-fall,
+  .animate-petal-sway,
   .scroll-orb-a,
   .scroll-orb-b,
   .scroll-blob,
@@ -479,7 +596,14 @@ body {
   .view-rotate-slow,
   .footer-couple-glow,
   .footer-ornament-float,
-  .hero-enter {
+  .hero-enter,
+  .peacock-crest,
+  .peacock-feather-open,
+  .peacock-feather-breathe,
+  .peacock-head,
+  .lotus-bloom,
+  .hero-spark,
+  .kuthuvilakku-flame {
     animation: none;
   }
 }

@@ -73,8 +73,8 @@ const structuredData = {
   eventStatus: "https://schema.org/EventScheduled",
   location: {
     "@type": "Place",
-    name: EVENT.venue,
-    address: EVENT.venue,
+    name: EVENT.venueHall,
+    address: EVENT.address,
   },
   description: `Wedding celebration of ${EVENT.bride} and ${EVENT.groom}.`,
 };

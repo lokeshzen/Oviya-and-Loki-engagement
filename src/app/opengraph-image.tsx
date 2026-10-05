@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
+import { EVENT, RECEPTION } from "@/lib/event";
 
-export const alt = "Oviya & Lokesh — Wedding Invitation";
+export const alt = `${EVENT.bride} & ${EVENT.groom} — ${EVENT.title} Invitation`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -52,7 +53,7 @@ export default async function Image() {
               marginTop: 12,
             }}
           >
-            Wedding
+            {EVENT.title}
           </div>
           <div
             style={{
@@ -62,16 +63,16 @@ export default async function Image() {
               marginTop: 16,
             }}
           >
-            Oviya & Lokesh
+            {EVENT.bride} & {EVENT.groom}
           </div>
           <div style={{ color: "#061E3A", fontSize: 22, marginTop: 24 }}>
-            Reception · November 14, 2026 · 7:00 pm
+            Reception · {RECEPTION.dateLabel} · {RECEPTION.timeLabel}
           </div>
           <div style={{ color: "#061E3A", fontSize: 22, marginTop: 8 }}>
-            Wedding · November 15, 2026 · 6:00–7:30 am
+            Wedding · {EVENT.dateLabel} · {EVENT.timeLabel}
           </div>
           <div style={{ color: "#4A5A6E", fontSize: 20, marginTop: 12 }}>
-            Rangalaya Royal, Katpadi, Vellore
+            {EVENT.venueHall}
           </div>
         </div>
       </div>

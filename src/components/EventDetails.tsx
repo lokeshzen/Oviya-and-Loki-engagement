@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import { ParallaxSection } from "@/components/ParallaxSection";
 import { ScrollReveal, SectionHeading } from "@/components/ScrollReveal";
 import { Card } from "@/components/ui/Card";
-import { EVENT, RECEPTION } from "@/lib/event";
+import { Kuthuvilakku } from "@/components/Kuthuvilakku";
+import { EVENT, FAMILY, RECEPTION } from "@/lib/event";
 import { hoverLift } from "@/lib/animations";
 
 const ceremonies = [
@@ -12,14 +13,16 @@ const ceremonies = [
     label: "Wedding Reception",
     date: RECEPTION.dateLabel,
     time: RECEPTION.timeLabel,
-    venue: RECEPTION.venue,
+    venue: EVENT.venueHall,
+    address: EVENT.address,
     href: EVENT.mapsUrl,
   },
   {
     label: "Wedding",
     date: EVENT.dateLabel,
     time: EVENT.timeLabel,
-    venue: EVENT.venue,
+    venue: EVENT.venueHall,
+    address: EVENT.address,
     href: EVENT.mapsUrl,
   },
 ] as const;
@@ -36,8 +39,11 @@ export function EventDetails() {
           <SectionHeading
             eyebrow="Event Details"
             title="Join Us for the Celebration"
-            description="We would be honoured to have you with us for the reception and the wedding."
           />
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.05} className="mt-10">
+          <FamilyInvitation />
         </ScrollReveal>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
@@ -56,17 +62,59 @@ export function EventDetails() {
   );
 }
 
+function FamilyInvitation() {
+  return (
+    <Card
+      variant="default"
+      className="mx-auto max-w-xl bg-invite-ivory/80 text-center backdrop-blur-sm"
+    >
+      <p className="font-display text-lg font-medium leading-snug text-invite-royal-purple">
+        {FAMILY.hostFather}
+      </p>
+      <p className="mt-1 font-body text-sm italic text-invite-gray">and</p>
+      <p className="mt-1 font-display text-lg font-medium leading-snug text-invite-royal-purple">
+        {FAMILY.hostMother}
+      </p>
+      <p className="mx-auto mt-5 max-w-md font-body text-base leading-relaxed text-invite-gray">
+        {FAMILY.invitationLine}
+      </p>
+      <div className="mt-6 flex flex-col items-center gap-1">
+        <p className="font-accent text-3xl leading-tight text-invite-royal-purple sm:text-4xl">
+          {EVENT.groomFormal}
+        </p>
+        <p className="font-label text-[0.7rem] tracking-[0.12em] text-invite-royal-pink">
+          {EVENT.groomCredentials}
+        </p>
+      </div>
+      <p className="my-3 font-body text-sm italic text-invite-gray">with</p>
+      <div className="flex flex-col items-center gap-1">
+        <p className="font-accent text-3xl leading-tight text-invite-royal-purple sm:text-4xl">
+          {EVENT.brideFormal}
+        </p>
+        <p className="font-label text-[0.7rem] tracking-[0.12em] text-invite-royal-pink">
+          {EVENT.brideCredentials}
+        </p>
+      </div>
+      <p className="mt-4 font-body text-base leading-relaxed text-invite-gray">
+        (D/o. {FAMILY.brideFather} & {FAMILY.brideMother})
+      </p>
+    </Card>
+  );
+}
+
 function CeremonyCard({
   label,
   date,
   time,
   venue,
+  address,
   href,
 }: {
   label: string;
   date: string;
   time: string;
   venue: string;
+  address: string;
   href: string;
 }) {
   return (
@@ -75,7 +123,7 @@ function CeremonyCard({
       target="_blank"
       rel="noopener noreferrer"
       className="block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2"
-      aria-label={`${label}: ${date}, ${time} at ${venue} — open in maps`}
+      aria-label={`${label}: ${date}, ${time} at ${venue}, ${address} — open in maps`}
     >
       <motion.div initial="rest" whileHover="hover" variants={hoverLift}>
         <Card
@@ -85,6 +133,7 @@ function CeremonyCard({
           <p className="font-label text-[0.7rem] font-medium tracking-[0.15em] text-invite-royal-pink uppercase">
             {label}
           </p>
+          {label === "Wedding" ? <Kuthuvilakku className="mt-3" /> : null}
           <div className="mt-4 flex w-full flex-col items-center gap-2.5">
             <p className="flex items-center gap-2 font-display text-lg font-medium leading-snug text-invite-royal-purple tabular-nums">
               <CalendarIcon />
@@ -97,6 +146,9 @@ function CeremonyCard({
             <p className="flex items-center gap-2 font-body text-base leading-relaxed text-invite-gray">
               <PinIcon />
               {venue}
+            </p>
+            <p className="max-w-xs font-body text-sm leading-relaxed text-invite-gray-light">
+              {address}
             </p>
           </div>
           <p className="mt-5 font-label text-xs tracking-[0.12em] text-invite-royal-pink uppercase">

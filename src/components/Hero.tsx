@@ -3,7 +3,39 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { AmpersandMedallion, DecorativeBorder } from "@/components/DecorativeBorder";
+import { PeacockCrest } from "@/components/PeacockCrest";
 import { EVENT } from "@/lib/event";
+
+const NAME_SPARKS = [
+  { top: "4%", left: "6%", delay: "2.05s", size: 3 },
+  { top: "16%", left: "88%", delay: "2.35s", size: 2 },
+  { top: "42%", left: "2%", delay: "2.7s", size: 2.5 },
+  { top: "48%", left: "92%", delay: "2.2s", size: 3 },
+  { top: "74%", left: "10%", delay: "2.9s", size: 2 },
+  { top: "86%", left: "84%", delay: "2.55s", size: 2.5 },
+  { top: "28%", left: "16%", delay: "3.15s", size: 2 },
+  { top: "68%", left: "80%", delay: "3.35s", size: 2 },
+] as const;
+
+function NameSparks() {
+  return (
+    <span className="pointer-events-none absolute inset-0" aria-hidden>
+      {NAME_SPARKS.map((spark) => (
+        <span
+          key={`${spark.top}-${spark.left}`}
+          className="hero-spark"
+          style={{
+            top: spark.top,
+            left: spark.left,
+            width: spark.size,
+            height: spark.size,
+            animationDelay: spark.delay,
+          }}
+        />
+      ))}
+    </span>
+  );
+}
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
@@ -43,18 +75,21 @@ export function Hero() {
         className="relative z-10 mx-auto w-full max-w-md text-center"
         style={reduceMotion ? undefined : { opacity: contentOpacity, y: contentY }}
       >
-        <p className="hero-enter font-label text-xs font-medium tracking-[0.25em] text-invite-gray uppercase">
+        <PeacockCrest />
+
+        <p className="hero-enter hero-enter-delay-1 font-label text-xs font-medium tracking-[0.25em] text-invite-gray uppercase">
           You are cordially invited to our {EVENT.title}
         </p>
 
-        <div className="hero-enter hero-enter-delay-1 my-6">
+        <div className="hero-enter hero-enter-delay-2 my-5 sm:my-6">
           <DecorativeBorder />
         </div>
 
         <h1
           id="hero-title"
-          className="hero-enter hero-enter-delay-2 flex flex-col items-center gap-2"
+          className="hero-enter hero-enter-delay-3 relative flex flex-col items-center gap-2"
         >
+          {reduceMotion ? null : <NameSparks />}
           <span className="royal-name-glow font-accent text-6xl leading-none text-invite-royal-purple sm:text-7xl lg:text-8xl">
             {EVENT.bride}
           </span>
@@ -68,7 +103,7 @@ export function Hero() {
           </span>
         </h1>
 
-        <div className="hero-enter hero-enter-delay-3 mt-10">
+        <div className="hero-enter hero-enter-delay-4 mt-8 sm:mt-10">
           <a
             href="#details"
             className="inline-flex items-center gap-2 rounded-full border border-invite-ivory-gold/50 bg-invite-ivory/90 px-6 py-2.5 font-label text-sm text-invite-royal-purple shadow-sm backdrop-blur-sm transition hover:border-invite-royal-pink hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2"
@@ -85,7 +120,7 @@ export function Hero() {
         className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
+        transition={{ delay: 2.4, duration: 0.8 }}
         aria-hidden
       >
         <div className="h-8 w-px bg-gradient-to-b from-invite-ivory-gold/70 to-transparent" />

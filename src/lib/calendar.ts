@@ -23,7 +23,8 @@ const BOTH_EVENTS_DETAILS = `You are cordially invited.
 
 Reception: ${RECEPTION.dateLabel} · ${RECEPTION.timeLabel}
 Wedding: ${EVENT.dateLabel} · ${EVENT.timeLabel}
-Venue: ${EVENT.venue}`;
+Venue: ${EVENT.venueHall}
+${EVENT.address}`;
 
 function calendarUrl(title: string, startISO: string, endISO: string): string {
   const text = encodeURIComponent(title);

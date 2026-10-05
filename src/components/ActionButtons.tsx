@@ -103,7 +103,7 @@ export function ActionButtons() {
           <div className="mx-auto flex max-w-[14rem] flex-col items-center rounded-2xl border border-invite-ivory-gold/70 bg-invite-ivory/95 p-4 shadow-sm backdrop-blur-sm">
             <Image
               src={EVENT.venueQr}
-              alt="QR code to open Rangalaya Royal, Katpadi, Vellore in maps"
+              alt={`QR code to open ${EVENT.venueHall} in maps`}
               width={220}
               height={220}
               className="h-auto w-full rounded-md"

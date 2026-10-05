@@ -36,25 +36,32 @@ function PeacockFeather({
         left: `${config.left}%`,
         width: config.size,
         height: config.size * 2.1,
-        animationDelay: `${config.delay}s, ${config.delay * 0.5}s`,
-        animationDuration: `${config.duration}s, ${config.swayDuration}s`,
+        animationDelay: `${config.delay}s`,
+        animationDuration: `${config.duration}s`,
         ["--drift" as string]: `${config.drift}px`,
-        transform: `rotate(${config.rotation}deg)`,
       }}
       aria-hidden
     >
-      <svg viewBox="0 0 24 52" width="100%" height="100%" fill="none">
-        <ellipse cx="12" cy="30" rx="7.5" ry="20" fill={config.color} opacity="0.5" />
-        <ellipse cx="12" cy="18" rx="4.4" ry="7.5" fill={eye} opacity="0.9" />
-        <circle cx="12" cy="16.5" r="2.1" fill="#FEFCF8" />
-        <circle cx="12" cy="16.5" r="1.1" fill="#C9A227" />
-        <path
-          d="M12 8.5 C12 8.5 12.4 4 12 1.5"
-          stroke={config.color}
-          strokeWidth="1.2"
-          strokeLinecap="round"
-        />
-      </svg>
+      <span
+        className="animate-petal-sway"
+        style={{
+          animationDelay: `${config.delay * 0.5}s`,
+          animationDuration: `${config.swayDuration}s`,
+        }}
+      >
+        <svg viewBox="0 0 24 52" width="100%" height="100%" fill="none">
+          <ellipse cx="12" cy="30" rx="7.5" ry="20" fill={config.color} opacity="0.5" />
+          <ellipse cx="12" cy="18" rx="4.4" ry="7.5" fill={eye} opacity="0.9" />
+          <circle cx="12" cy="16.5" r="2.1" fill="#FEFCF8" />
+          <circle cx="12" cy="16.5" r="1.1" fill="#C9A227" />
+          <path
+            d="M12 8.5 C12 8.5 12.4 4 12 1.5"
+            stroke={config.color}
+            strokeWidth="1.2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </span>
     </span>
   );
 }

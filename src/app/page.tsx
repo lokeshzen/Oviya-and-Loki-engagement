@@ -10,7 +10,7 @@ import { ScrollProgress } from "@/components/ScrollProgress";
 import { ScrollVelocity } from "@/components/ScrollVelocity";
 import { SectionTransition } from "@/components/SectionTransitions";
 import { Timeline } from "@/components/Timeline";
-import { EVENT } from "@/lib/event";
+import { EVENT, FAMILY } from "@/lib/event";
 
 export default function HomePage() {
   return (
@@ -22,7 +22,7 @@ export default function HomePage() {
         Skip to content
       </a>
 
-      <RosePetals density="medium" />
+      <RosePetals density="light" />
       <ScrollDrivenElements />
       <ScrollVelocity />
 
@@ -52,7 +52,7 @@ export default function HomePage() {
             <div className="space-y-4 text-center view-fade-up">
               {/* Couple names with elegant styling */}
               <div className="space-y-2">
-                <h3 className="font-accent text-4xl sm:text-5xl text-invite-royal-pink footer-couple-glow">
+                <h3 className="font-accent text-4xl sm:text-5xl text-invite-royal-pink">
                   {EVENT.bride} & {EVENT.groom}
                 </h3>
                 <p className="font-label text-xs tracking-[0.16em] text-invite-royal-purple uppercase">
@@ -68,7 +68,7 @@ export default function HomePage() {
                   <div className="h-px w-8 bg-invite-ivory-gold/40" />
                 </div>
                 <p className="font-body text-base tracking-wider text-invite-gray-light">
-                  Crafted with love for our special day
+                  {FAMILY.complimentsLine}
                 </p>
               </div>
             </div>

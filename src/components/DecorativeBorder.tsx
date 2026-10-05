@@ -45,26 +45,28 @@ export function DecorativeBorder({ className, flip = false }: DecorativeBorderPr
         fill="currentColor"
         opacity="0.85"
       />
-      <path
-        d="M160 7 C152 14 148 17 148 21 C148 25.4 153.4 28.5 160 28.5 C166.6 28.5 172 25.4 172 21 C172 17 168 14 160 7 Z"
-        stroke="currentColor"
-        strokeWidth="0.75"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M138 18 C146 11 152 14 160 18 C168 22 174 25 182 18"
-        stroke="currentColor"
-        strokeWidth="0.6"
-        strokeLinecap="round"
-      />
-      <path
-        d="M138 18 C146 25 152 22 160 18 C168 14 174 11 182 18"
-        stroke="currentColor"
-        strokeWidth="0.6"
-        strokeLinecap="round"
-        opacity="0.7"
-      />
-      <circle cx="160" cy="19.5" r="2.1" fill="currentColor" />
+      <g className="lotus-bloom">
+        <path
+          d="M160 7 C152 14 148 17 148 21 C148 25.4 153.4 28.5 160 28.5 C166.6 28.5 172 25.4 172 21 C172 17 168 14 160 7 Z"
+          stroke="currentColor"
+          strokeWidth="0.75"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M138 18 C146 11 152 14 160 18 C168 22 174 25 182 18"
+          stroke="currentColor"
+          strokeWidth="0.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M138 18 C146 25 152 22 160 18 C168 14 174 11 182 18"
+          stroke="currentColor"
+          strokeWidth="0.6"
+          strokeLinecap="round"
+          opacity="0.7"
+        />
+        <circle cx="160" cy="19.5" r="2.1" fill="currentColor" />
+      </g>
     </svg>
   );
 
