@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeIn } from "@/lib/animations";
+import { RoseGarland } from "@/components/RoseGarland";
 import { cn } from "@/lib/utils";
 
 type DecorativeBorderProps = {
@@ -70,7 +71,19 @@ export function DecorativeBorder({ className, flip = false }: DecorativeBorderPr
     </svg>
   );
 
-  if (reduceMotion) return content;
+  const artwork = (
+    <div className="relative mx-auto w-full max-w-xs sm:max-w-md">
+      {content}
+      {flip ? null : (
+        <>
+          <RoseGarland side="left" />
+          <RoseGarland side="right" />
+        </>
+      )}
+    </div>
+  );
+
+  if (reduceMotion) return artwork;
 
   return (
     <motion.div
@@ -79,7 +92,7 @@ export function DecorativeBorder({ className, flip = false }: DecorativeBorderPr
       viewport={{ once: true, margin: "-20px" }}
       variants={fadeIn}
     >
-      {content}
+      {artwork}
     </motion.div>
   );
 }

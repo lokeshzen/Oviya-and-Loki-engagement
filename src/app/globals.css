@@ -654,6 +654,99 @@ html.hero-curtain-locked body {
   }
 }
 
+.garland-strand {
+  animation: garlandStrand 6.5s ease-in-out infinite;
+}
+
+.garland-strand svg {
+  filter: drop-shadow(0 1px 1.5px rgba(47, 74, 32, 0.45));
+}
+
+.garland-sway {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: garlandSway 5.2s ease-in-out infinite;
+}
+
+.garland-vine {
+  stroke-dasharray: 4 14;
+  animation: garlandVineTravel 9s linear infinite;
+}
+
+@keyframes garlandStrand {
+  0%,
+  100% {
+    transform: translateX(-1.5px);
+  }
+  50% {
+    transform: translateX(1.5px);
+  }
+}
+
+@keyframes garlandSway {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes garlandVineTravel {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -50;
+  }
+}
+
+.rose-hang {
+  transform-origin: top center;
+  animation: roseHang 4.6s ease-in-out infinite;
+}
+
+.rose-bloom {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: roseBloom 5.4s ease-in-out infinite;
+}
+
+.rose-stem {
+  stroke-dasharray: 5 12;
+  animation: roseStemTravel 8s linear infinite;
+}
+
+@keyframes roseHang {
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+
+@keyframes roseBloom {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes roseStemTravel {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -34;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-float-soft,
   .animate-reveal-glow,
@@ -680,7 +773,13 @@ html.hero-curtain-locked body {
   .hero-revealed .peacock-head,
   .lotus-bloom,
   .hero-spark,
-  .kuthuvilakku-flame {
+  .kuthuvilakku-flame,
+  .garland-strand,
+  .garland-sway,
+  .garland-vine,
+  .rose-hang,
+  .rose-bloom,
+  .rose-stem {
     animation: none;
   }
 

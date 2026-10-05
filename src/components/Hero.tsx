@@ -189,7 +189,10 @@ export function Hero() {
             <AmpersandMedallion />
             <span className="gold-divider w-8" />
           </span>
-          <span className="royal-name-glow font-accent text-6xl leading-none text-invite-royal-purple sm:text-7xl lg:text-8xl">
+          <span
+            id="hero-groom"
+            className="royal-name-glow font-accent text-6xl leading-none text-invite-royal-purple sm:text-7xl lg:text-8xl"
+          >
             {EVENT.groom}
           </span>
         </h1>

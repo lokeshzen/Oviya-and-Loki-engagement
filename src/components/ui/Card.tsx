@@ -1,3 +1,4 @@
+import { FloralGarland } from "@/components/FloralGarland";
 import { cn } from "@/lib/utils";
 import { HTMLAttributes } from "react";
 
@@ -21,15 +22,24 @@ export function Card({
   children,
   ...props
 }: CardProps) {
+  const isArticle = Tag === "article";
+
   return (
     <Tag
       className={cn(
-        "rounded-2xl p-6 sm:p-8",
+        "relative overflow-hidden rounded-2xl py-6 sm:py-8",
+        isArticle ? "px-14 sm:px-16" : "px-6 sm:px-8",
         variantStyles[variant],
         className
       )}
       {...props}
     >
+      {isArticle ? (
+        <>
+          <FloralGarland side="left" />
+          <FloralGarland side="right" />
+        </>
+      ) : null}
       {children}
     </Tag>
   );
