@@ -271,10 +271,10 @@ export function Gopuram({ className }: GopuramProps) {
       <path d="M8 548 C4 500 22 470 34 508 C40 478 62 468 58 520 C72 490 86 500 78 548 Z" fill={LEAF} />
       <path d="M22 548 C18 510 36 486 44 518 C52 492 70 488 64 548 Z" fill={LEAF_LIT} />
       <path d="M70 548 C66 520 82 500 90 528 C98 508 112 512 106 548 Z" fill={LEAF} />
-      <Flower x="16" y="542" r={2.4} />
-      <Flower x="28" y="546" r={2.1} fill={CREAM_LIGHT} />
-      <Flower x="44" y="544" r={2.6} fill={ROSE_DEEP} />
-      <Flower x="84" y="546" r={2.2} />
+      <Flower x={16} y={542} r={2.4} />
+      <Flower x={28} y={546} r={2.1} fill={CREAM_LIGHT} />
+      <Flower x={44} y={544} r={2.6} fill={ROSE_DEEP} />
+      <Flower x={84} y={546} r={2.2} />
 
       {/* Standing kuthuvilakku */}
       <g transform="translate(108 430)">
