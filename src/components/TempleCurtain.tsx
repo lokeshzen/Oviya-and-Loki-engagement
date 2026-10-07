@@ -58,8 +58,13 @@ export function TempleCurtain({ children }: TempleCurtainProps) {
           aria-hidden
         >
           <img
-            src="/assets/temple-curtain.jpg"
+            src="/assets/temple-curtain.webp"
             alt=""
+            width={849}
+            height={1024}
+            loading="lazy"
+            decoding="async"
+            fetchPriority="low"
             className="absolute inset-y-0 left-0 h-full w-[200%] max-w-none object-cover object-left"
           />
         </motion.div>
@@ -70,8 +75,13 @@ export function TempleCurtain({ children }: TempleCurtainProps) {
           aria-hidden
         >
           <img
-            src="/assets/temple-curtain.jpg"
+            src="/assets/temple-curtain.webp"
             alt=""
+            width={849}
+            height={1024}
+            loading="lazy"
+            decoding="async"
+            fetchPriority="low"
             className="absolute inset-y-0 right-0 h-full w-[200%] max-w-none object-cover object-right"
           />
         </motion.div>

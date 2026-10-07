@@ -37,8 +37,8 @@ export const staggerContainer: Variants = {
 
 export const viewportOnce = {
   once: true,
-  margin: "-60px" as const,
-  amount: 0.2 as const,
+  margin: "0px" as const,
+  amount: 0.08 as const,
 };
 
 export const fadeLeft: Variants = {

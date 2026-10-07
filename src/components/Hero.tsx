@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { AmpersandMedallion, DecorativeBorder } from "@/components/DecorativeBorder";
 import { HeroCurtain } from "@/components/HeroCurtain";
@@ -8,7 +8,7 @@ import { useSmoothScroll } from "@/components/SmoothScroll";
 import { EVENT } from "@/lib/event";
 import { cn } from "@/lib/utils";
 
-const CURTAIN_SEQUENCE_MS = 2000;
+const CURTAIN_SEQUENCE_MS = 1200;
 const CURTAIN_FALLBACK_MS = 8000;
 // Matches HeroCurtain: 0.2s delay + 0.9s panel travel.
 const CURTAIN_REVEAL_MS = 1100;
@@ -65,11 +65,30 @@ export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const hasOpenedRef = useRef(false);
+  const holdHeroRef = useRef(true);
   const fadeFrameRef = useRef(0);
   const revealTimerRef = useRef(0);
+  const lenisRef = useRef(scroll?.lenis ?? null);
+  lenisRef.current = scroll?.lenis ?? null;
+
+  const pinningRef = useRef(false);
+  const pinHero = useCallback(() => {
+    if (pinningRef.current) return;
+    pinningRef.current = true;
+    const root = document.documentElement;
+    const previous = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    window.scrollTo(0, 0);
+    root.scrollTop = 0;
+    document.body.scrollTop = 0;
+    root.style.scrollBehavior = previous;
+    lenisRef.current?.scrollTo(0, { immediate: true, force: true });
+    pinningRef.current = false;
+  }, []);
   const [isOpen, setIsOpen] = useState(false);
   const [curtainMounted, setCurtainMounted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [loadVideo, setLoadVideo] = useState(false);
 
   const skipCurtain = reduceMotion === true;
 
@@ -137,11 +156,19 @@ export function Hero() {
   );
 
   const open = useCallback(() => {
+    pinHero();
+    if (window.location.hash && window.location.hash !== "#hero") {
+      history.replaceState(
+        null,
+        "",
+        `${window.location.pathname}${window.location.search}`,
+      );
+    }
     setIsOpen(true);
     if (hasOpenedRef.current) return;
     hasOpenedRef.current = true;
     playMusic(true);
-  }, [playMusic]);
+  }, [pinHero, playMusic]);
 
   const toggleMusic = useCallback(() => {
     const audio = audioRef.current;
@@ -164,16 +191,68 @@ export function Hero() {
     };
   }, [cancelFade, clearRevealTimer]);
 
+  useLayoutEffect(() => {
+    if (skipCurtain) {
+      holdHeroRef.current = false;
+      return;
+    }
+
+    const previousRestoration = history.scrollRestoration;
+    history.scrollRestoration = "manual";
+    if (window.location.hash && window.location.hash !== "#hero") {
+      history.replaceState(
+        null,
+        "",
+        `${window.location.pathname}${window.location.search}`,
+      );
+    }
+    pinHero();
+
+    return () => {
+      history.scrollRestoration = previousRestoration;
+    };
+  }, [pinHero, skipCurtain]);
+
   useEffect(() => {
     if (skipCurtain) {
       setIsOpen(true);
       setCurtainMounted(false);
+      return;
     }
-  }, [skipCurtain]);
+
+    const pinIfHeld = () => {
+      if (!holdHeroRef.current) return;
+      const native =
+        window.scrollY ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      const smooth = lenisRef.current?.animatedScroll ?? 0;
+      if (native < 1 && smooth < 1) return;
+      pinHero();
+    };
+
+    pinIfHeld();
+    window.addEventListener("scroll", pinIfHeld, { passive: true });
+    window.addEventListener("pageshow", pinIfHeld);
+    return () => {
+      window.removeEventListener("scroll", pinIfHeld);
+      window.removeEventListener("pageshow", pinIfHeld);
+    };
+  }, [pinHero, skipCurtain]);
+
+  useEffect(() => {
+    const start = () => setLoadVideo(true);
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback(start, { timeout: 1800 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = window.setTimeout(start, 800);
+    return () => window.clearTimeout(id);
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !loadVideo) return;
 
     if (reduceMotion) {
       video.pause();
@@ -190,8 +269,9 @@ export function Hero() {
     }
 
     video.addEventListener("canplay", play, { once: true });
+    video.load();
     return () => video.removeEventListener("canplay", play);
-  }, [reduceMotion]);
+  }, [loadVideo, reduceMotion]);
 
   useEffect(() => {
     if (skipCurtain || isOpen) return;
@@ -219,6 +299,7 @@ export function Hero() {
     if (!isOpen) {
       document.documentElement.classList.add("hero-curtain-locked");
       lenis?.stop();
+      pinHero();
       return () => {
         document.documentElement.classList.remove("hero-curtain-locked");
         lenis?.start();
@@ -227,9 +308,15 @@ export function Hero() {
 
     document.documentElement.classList.add("hero-curtain-locked");
     lenis?.stop();
+    pinHero();
     const id = window.setTimeout(() => {
       document.documentElement.classList.remove("hero-curtain-locked");
       lenis?.start();
+      pinHero();
+      window.requestAnimationFrame(() => {
+        pinHero();
+        holdHeroRef.current = false;
+      });
     }, CURTAIN_SEQUENCE_MS);
 
     return () => {
@@ -237,7 +324,7 @@ export function Hero() {
       document.documentElement.classList.remove("hero-curtain-locked");
       lenis?.start();
     };
-  }, [isOpen, skipCurtain, scroll?.lenis]);
+  }, [isOpen, pinHero, skipCurtain, scroll?.lenis]);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -262,7 +349,7 @@ export function Hero() {
         ref={audioRef}
         src="/assets/sundari-kannal-bgm.mp3"
         loop
-        preload="auto"
+        preload="none"
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
       />
@@ -296,10 +383,13 @@ export function Hero() {
           loop
           muted
           playsInline
-          preload="auto"
+          preload={loadVideo ? "auto" : "none"}
+          fetchPriority="low"
           disablePictureInPicture
         >
-          <source src="/assets/loki-wedding.mp4" type="video/mp4" />
+          {loadVideo ? (
+            <source src="/assets/loki-wedding.mp4" type="video/mp4" />
+          ) : null}
         </video>
         <div className="absolute inset-0 bg-invite-ivory/15" />
         <div className="absolute inset-0 bg-gradient-to-b from-invite-rose-blush/15 via-transparent to-invite-champagne/15" />

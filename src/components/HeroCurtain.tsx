@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useId } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { getPetalConfig } from "@/lib/petal-physics";
 
@@ -9,6 +9,8 @@ const CURTAIN_EASE = [0.76, 0, 0.24, 1] as const;
 const TASSEL_Y = ["18%", "34%", "50%", "66%", "82%"] as const;
 
 const ROSE_COLORS = ["#E8A0A8", "#C45C6A", "#F3E6C4", "#D4896A", "#C9A227"] as const;
+const CURTAIN_PETAL_COUNT = 24;
+const FALL_SECONDS = 6.4;
 
 type HeroCurtainProps = {
   isOpen: boolean;
@@ -217,10 +219,12 @@ function GrandMonogram() {
   return (
     <div className="curtain-monogram relative w-[min(64.5vw,18rem)]" aria-hidden>
       <img
-        src="/assets/ol-monogram.png"
+        src="/assets/ol-monogram.webp"
         alt=""
-        width={819}
-        height={771}
+        width={560}
+        height={527}
+        fetchPriority="high"
+        decoding="async"
         className="h-auto w-full"
       />
     </div>
@@ -229,22 +233,12 @@ function GrandMonogram() {
 
 function CurtainPetals() {
   const reduceMotion = useReducedMotion();
-  const [count, setCount] = useState<number | null>(null);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 640px)");
-    const update = () => setCount(mq.matches ? 160 : 280);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
-  if (reduceMotion || count === null) return null;
+  if (reduceMotion) return null;
 
   return (
     <>
-      {Array.from({ length: count }, (_, i) => (
-        <CurtainRosePetal key={i} index={i} total={count} />
+      {Array.from({ length: CURTAIN_PETAL_COUNT }, (_, i) => (
+        <CurtainRosePetal key={i} index={i} total={CURTAIN_PETAL_COUNT} />
       ))}
     </>
   );
@@ -259,23 +253,26 @@ function CurtainRosePetal({
 }) {
   const config = getPetalConfig(index, total);
   const color = ROSE_COLORS[index % ROSE_COLORS.length];
+  // The fall begins off-screen at opacity 0. Start each petal inside the
+  // visible part of that cycle so the shower is moving with the curtain.
+  const visibleProgress = 0.2 + (index / Math.max(total - 1, 1)) * 0.54;
 
   return (
     <span
-      className="animate-curtain-petal-fall pointer-events-none absolute block opacity-0 will-change-transform"
+      className="animate-curtain-petal-fall pointer-events-none absolute block"
       style={{
         left: `${((index * 41) % 100) + ((index * 7) % 5) - 2}%`,
         width: config.size * 1.2,
         height: config.size * 1.75,
-        animationDelay: `-${((index / Math.max(total, 1)) * (6.4 + (index % 11) * 0.36)).toFixed(3)}s`,
-        animationDuration: `${5.2 + (index % 11) * 0.36}s`,
+        animationDelay: `-${(visibleProgress * FALL_SECONDS).toFixed(3)}s`,
+        animationDuration: `${FALL_SECONDS}s`,
         ["--drift" as string]: `${config.drift * 0.45}px`,
       }}
     >
       <span
         className="animate-petal-sway"
         style={{
-          animationDelay: `${config.delay * 0.25}s`,
+          animationDelay: `-${(index % 5) * 0.45}s`,
           animationDuration: `${config.swayDuration}s`,
         }}
       >

@@ -157,14 +157,20 @@ body {
   animation: heroEnter 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.hero-revealed .hero-enter-delay-1,
-.hero-revealed .hero-enter-delay-2,
+.hero-revealed .hero-enter-delay-1 {
+  animation-delay: 0.12s;
+}
+
+.hero-revealed .hero-enter-delay-2 {
+  animation-delay: 0.22s;
+}
+
 .hero-revealed .hero-enter-delay-3 {
-  animation-delay: 1.5s;
+  animation-delay: 0.32s;
 }
 
 .hero-revealed .hero-enter-delay-4 {
-  animation-delay: 2s;
+  animation-delay: 0.42s;
 }
 
 html.hero-curtain-locked,

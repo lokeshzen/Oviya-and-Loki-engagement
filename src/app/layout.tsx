@@ -16,6 +16,7 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
   display: "swap",
+  preload: false,
 });
 
 const inter = Inter({
@@ -36,6 +37,7 @@ const imperialScript = Imperial_Script({
   subsets: ["latin"],
   variable: "--font-imperial-script",
   display: "swap",
+  preload: false,
 });
 
 const ovo = Ovo({
@@ -43,6 +45,7 @@ const ovo = Ovo({
   subsets: ["latin"],
   variable: "--font-ovo",
   display: "swap",
+  preload: false,
 });
 
 const cinzel = Cinzel({
@@ -50,6 +53,7 @@ const cinzel = Cinzel({
   weight: ["500", "600"],
   variable: "--font-cinzel",
   display: "swap",
+  preload: false,
 });
 
 const cormorant = Cormorant_Garamond({

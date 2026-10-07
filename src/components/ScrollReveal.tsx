@@ -1,12 +1,12 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   revealVariants,
   viewportOnce,
   type RevealDirection,
 } from "@/lib/animations";
-import { ScrollTypography } from "@/components/ScrollTypography";
 import { cn } from "@/lib/utils";
 
 type ScrollRevealProps = {
@@ -23,10 +23,25 @@ export function ScrollReveal({
   direction = "up",
 }: ScrollRevealProps) {
   const reduceMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
   const variant = revealVariants[direction];
 
-  if (reduceMotion) {
-    return <div className={className}>{children}</div>;
+  useEffect(() => {
+    if (reduceMotion) return;
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const inView = rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
+    if (!inView) setShouldAnimate(true);
+  }, [reduceMotion]);
+
+  if (reduceMotion || !shouldAnimate) {
+    return (
+      <div ref={ref} className={className}>
+        {children}
+      </div>
+    );
   }
 
   return (
@@ -66,14 +81,12 @@ export function SectionHeading({
   description,
   className,
   onImage = true,
-  animated = true,
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   className?: string;
   onImage?: boolean;
-  animated?: boolean;
 }) {
   const titleClassName = cn(
     "section-title font-display text-2xl font-medium tracking-tight sm:text-3xl",
@@ -98,11 +111,7 @@ export function SectionHeading({
           {eyebrow}
         </p>
       )}
-      {animated ? (
-        <ScrollTypography as="h2" text={title} className={titleClassName} />
-      ) : (
-        <h2 className={titleClassName}>{title}</h2>
-      )}
+      <h2 className={titleClassName}>{title}</h2>
       {description && (
         <p
           className={cn(
