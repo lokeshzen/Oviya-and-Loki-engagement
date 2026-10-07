@@ -1,18 +1,14 @@
-"use client";
-
-import { TempleCurtain } from "@/components/TempleCurtain";
+import { ParallaxSection } from "@/components/ParallaxSection";
 import { Card } from "@/components/ui/Card";
 import { EVENT, FAMILY } from "@/lib/event";
 
 export function EventDetails() {
   return (
-    <section id="details" className="relative">
-      <TempleCurtain>
-        <div className="container-wide">
-          <FamilyInvitation />
-        </div>
-      </TempleCurtain>
-    </section>
+    <ParallaxSection id="details" overlay="warm" speed={0.3}>
+      <div className="container-wide">
+        <FamilyInvitation />
+      </div>
+    </ParallaxSection>
   );
 }
 

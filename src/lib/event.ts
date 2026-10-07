@@ -24,8 +24,8 @@ export const EVENT = {
 } as const;
 
 export const FAMILY = {
-  hostFather: "Mr. K. Murali, B.Sc., DMLT",
-  hostMother: "Mrs. M. Mekhala, B.Sc., DMLT",
+  hostFather: "Mr. K. Murali",
+  hostMother: "Mrs. M. Mekhala",
   hostRelation: "elder son",
   invitationLine:
     "We request the pleasure of your presence, with your family, and your blessings on the auspicious occasion of our wedding.",
@@ -59,8 +59,8 @@ export const RECEPTION = {
 } as const;
 
 export const WELCOME = {
-  heading: "With joy, we welcome you",
-  body: "Dear family and friends, it means so much to have you with us. We cannot wait to celebrate with you.",
+  heading: "We welcome you",
+  body: "Dear family and friends, having you by our side makes this beautiful journey even more meaningful. We are filled with joy as we look forward to celebrating this special occasion with you.",
 } as const;
 
 export const SCHEDULE = [

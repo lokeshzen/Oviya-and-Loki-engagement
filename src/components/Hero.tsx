@@ -390,15 +390,15 @@ export function Hero() {
             <source src="/assets/loki-wedding.mp4" type="video/mp4" />
           ) : null}
         </video>
-        <div className="absolute inset-0 bg-invite-ivory/15" />
-        <div className="absolute inset-0 bg-gradient-to-b from-invite-rose-blush/15 via-transparent to-invite-champagne/15" />
-        <div className="absolute inset-0 bg-gradient-to-r from-invite-ivory/20 via-transparent to-invite-ivory/20" />
+        <div className="absolute inset-0 bg-invite-ivory/5" />
+        <div className="absolute inset-0 bg-gradient-to-b from-invite-rose-blush/5 via-transparent to-invite-champagne/5" />
+        <div className="absolute inset-0 bg-gradient-to-r from-invite-ivory/6 via-transparent to-invite-ivory/6" />
         <motion.div
-          className="absolute inset-0 animate-reveal-glow opacity-50"
+          className="absolute inset-0 animate-reveal-glow opacity-20"
           style={{
             y: reduceMotion ? undefined : glowY,
             background:
-              "radial-gradient(ellipse 70% 50% at 50% 20%, rgba(11,58,106,0.12) 0%, transparent 70%)",
+              "radial-gradient(ellipse 70% 50% at 50% 20%, rgba(11,58,106,0.05) 0%, transparent 70%)",
           }}
         />
       </div>
@@ -408,8 +408,8 @@ export function Hero() {
         style={reduceMotion ? undefined : { opacity: contentOpacity, y: contentY }}
         {...(!isOpen ? { inert: true } : {})}
       >
-        <p className="hero-enter hero-enter-delay-1 font-label text-sm font-semibold tracking-[0.22em] text-white uppercase [text-shadow:0_1px_4px_rgba(6,30,58,0.7)] sm:text-base">
-          You are cordially invited to our wedding and reception
+        <p className="hero-enter hero-enter-delay-1 royal-name-glow font-accent text-4xl leading-[1.7] text-white sm:text-5xl">
+          With immense joy, we invite you to join us as we celebrate our wedding and the beginning of our beautiful journey together.
         </p>
 
         <div className="hero-enter hero-enter-delay-2 my-5 sm:my-6">
