@@ -384,7 +384,6 @@ export function Hero() {
           muted
           playsInline
           preload={loadVideo ? "auto" : "none"}
-          fetchPriority="low"
           disablePictureInPicture
         >
           {loadVideo ? (
