@@ -11,7 +11,7 @@ export function Welcome() {
       <div className="container-narrow">
         <ScrollReveal direction="up">
           <Card variant="default" className="text-center">
-            <h2 className="font-script text-4xl leading-tight text-invite-ivory-gold sm:text-5xl">
+            <h2 className="font-script text-4xl leading-tight text-invite-wine sm:text-5xl">
               {WELCOME.heading}
             </h2>
             <p className="mx-auto mt-6 max-w-md font-body text-lg leading-relaxed text-invite-gray">

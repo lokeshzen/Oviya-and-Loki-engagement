@@ -28,11 +28,24 @@ export const FAMILY = {
   hostMother: "Mrs. M. Mekhala, B.Sc., DMLT",
   hostRelation: "elder son",
   invitationLine:
-    "We cordially solicit your esteemed presence and blessings with family and friends on the auspicious occasion of the marriage of our elder son",
+    "We request the pleasure of your presence, with your family, and your blessings on the auspicious occasion of our wedding.",
   brideFather: "Mr. P. Sivaraman",
   brideMother: "Mrs. S. Jayaseela",
-  complimentsFrom: "Dr. M. Rakesh, MBBS.",
-  complimentsLine: "With best compliments from Dr. M. Rakesh, MBBS.",
+  complimentsFrom: "Dr. M. Rakesh, MBBS, and Er. S. Abinesh",
+  complimentsLine:
+    "With best compliments from\nDr. M. Rakesh, MBBS\nand\nEr. S. Abinesh.",
+  contacts: [
+    {
+      name: "Dr. M. Rakesh, MBBS",
+      phone: "+919994684038",
+      display: "99946 84038",
+    },
+    {
+      name: "Er. S. Abinesh",
+      phone: "+919600817049",
+      display: "96008 17049",
+    },
+  ],
 } as const;
 
 export const RECEPTION = {
@@ -47,7 +60,7 @@ export const RECEPTION = {
 
 export const WELCOME = {
   heading: "With joy, we welcome you",
-  body: `Dear family and friends, we are glad to welcome you. Please join us to celebrate the wedding of ${EVENT.bride} and ${EVENT.groom}.`,
+  body: "Dear family and friends, it means so much to have you with us. We cannot wait to celebrate with you.",
 } as const;
 
 export const SCHEDULE = [

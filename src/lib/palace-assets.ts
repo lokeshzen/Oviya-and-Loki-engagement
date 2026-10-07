@@ -1,8 +1,8 @@
 export const SECTION_NAV = [
   { id: "hero", label: "Home" },
   { id: "welcome", label: "Welcome" },
-  { id: "timeline", label: "Countdown" },
+  { id: "details", label: "Invitation" },
   { id: "schedule", label: "Schedule" },
-  { id: "details", label: "Details" },
-  { id: "actions", label: "Actions" },
+  { id: "timeline", label: "Countdown" },
+  { id: "actions", label: "Visit" },
 ] as const;

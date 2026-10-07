@@ -9,7 +9,7 @@ import {
   Playfair_Display,
 } from "next/font/google";
 import { SmoothScroll } from "@/components/SmoothScroll";
-import { EVENT } from "@/lib/event";
+import { EVENT, RECEPTION } from "@/lib/event";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -65,10 +65,10 @@ const siteUrl =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: `${EVENT.bride} & ${EVENT.groom} — ${EVENT.title}`,
-  description: `You are cordially invited to the ${EVENT.title.toLowerCase()} of ${EVENT.bride} & ${EVENT.groom} on ${EVENT.dateLabel} at ${EVENT.venue}.`,
+  description: `You are cordially invited to the wedding and reception of ${EVENT.bride} & ${EVENT.groom} on ${RECEPTION.dateLabel} and ${EVENT.dateLabel} at ${EVENT.venue}.`,
   openGraph: {
     title: `${EVENT.bride} & ${EVENT.groom} — ${EVENT.title}`,
-    description: `${EVENT.dateLabel} · ${EVENT.timeLabel} · ${EVENT.venue}. You are cordially invited.`,
+    description: `Reception ${RECEPTION.dateLabel} · ${RECEPTION.timeLabel}. Wedding ${EVENT.dateLabel} · ${EVENT.timeLabel}. ${EVENT.venue}. You are cordially invited.`,
     type: "website",
     locale: "en_IN",
     siteName: `${EVENT.bride} & ${EVENT.groom} ${EVENT.title}`,
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: `${EVENT.bride} & ${EVENT.groom} — ${EVENT.title}`,
-    description: `${EVENT.dateLabel} · ${EVENT.timeLabel} · ${EVENT.venue}. You are cordially invited.`,
+    description: `Reception ${RECEPTION.dateLabel} · ${RECEPTION.timeLabel}. Wedding ${EVENT.dateLabel} · ${EVENT.timeLabel}. ${EVENT.venue}. You are cordially invited.`,
   },
   appleWebApp: {
     capable: true,

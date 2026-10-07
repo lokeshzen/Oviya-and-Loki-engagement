@@ -37,11 +37,11 @@ export default function HomePage() {
         <SectionTransition />
         <Welcome />
         <SectionTransition />
-        <Timeline />
+        <EventDetails />
         <SectionTransition />
         <Schedule />
         <SectionTransition />
-        <EventDetails />
+        <Timeline />
         <SectionTransition />
         <ActionButtons />
         <PeacockCrest />
@@ -52,7 +52,7 @@ export default function HomePage() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px footer-gradient-border" />
           </div>
           
-          <div className="container-wide py-8 relative">
+          <div className="container-wide relative pb-24 pt-8">
             {/* Decorative top border */}
             <div className="mx-auto mb-4 w-24 gold-divider view-scale-line" />
             
@@ -75,9 +75,28 @@ export default function HomePage() {
                   <span className="text-invite-royal-pink text-sm">♡</span>
                   <div className="h-px w-8 bg-invite-ivory-gold/40" />
                 </div>
-                <p className="font-body text-base tracking-wider text-invite-gray-light">
+                <p className="whitespace-pre-line font-body text-base tracking-wider text-invite-gray-light">
                   {FAMILY.complimentsLine}
                 </p>
+                <div className="mt-3 space-y-1">
+                  <p className="font-label text-xs tracking-[0.16em] text-invite-royal-purple uppercase">
+                    Contact
+                  </p>
+                  {FAMILY.contacts.map((contact) => (
+                    <p
+                      key={contact.phone}
+                      className="font-body text-base text-invite-gray"
+                    >
+                      {contact.name}{" "}
+                      <a
+                        href={`tel:${contact.phone}`}
+                        className="text-invite-royal-pink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2"
+                      >
+                        {contact.display}
+                      </a>
+                    </p>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

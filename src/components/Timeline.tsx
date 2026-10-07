@@ -60,8 +60,8 @@ export function Timeline() {
     >
       <div className="container-wide">
         <ScrollReveal direction="down">
-          <h2 className="text-center font-script text-4xl leading-tight text-invite-ivory-gold sm:text-5xl">
-            The Celebration Begins In
+          <h2 className="text-center font-script text-4xl leading-tight text-invite-wine sm:text-5xl">
+            The reception begins in
           </h2>
         </ScrollReveal>
 

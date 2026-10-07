@@ -1,8 +1,10 @@
 "use client";
 
+import { Kuthuvilakku } from "@/components/Kuthuvilakku";
 import { ParallaxSection } from "@/components/ParallaxSection";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { SCHEDULE } from "@/lib/event";
+import { Card } from "@/components/ui/Card";
+import { EVENT, SCHEDULE } from "@/lib/event";
 
 export function Schedule() {
   return (
@@ -11,7 +13,7 @@ export function Schedule() {
         <ScrollReveal direction="down">
           <div className="flex items-center justify-center gap-3">
             <span className="gold-divider hidden w-10 sm:block" aria-hidden />
-            <h2 className="text-center font-script text-4xl leading-tight text-invite-ivory-gold sm:text-5xl">
+            <h2 className="text-center font-script text-4xl leading-tight text-invite-wine sm:text-5xl">
               Schedule of Events
             </h2>
             <span className="gold-divider hidden w-10 sm:block" aria-hidden />
@@ -50,7 +52,52 @@ export function Schedule() {
             </ol>
           </div>
         </ScrollReveal>
+
+        <ScrollReveal delay={0.18} className="mt-12">
+          <VenueCard />
+        </ScrollReveal>
       </div>
     </ParallaxSection>
+  );
+}
+
+function VenueCard() {
+  return (
+    <a
+      href={EVENT.mapsUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mx-auto block max-w-md rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2"
+      aria-label={`Venue: ${EVENT.venueHall}, ${EVENT.address} — open in maps`}
+    >
+      <Card
+        variant="default"
+        className="flex flex-col items-center bg-invite-ivory/80 text-center backdrop-blur-sm transition-shadow hover:border-invite-royal-pink/40 hover:shadow-md hover:shadow-invite-royal-pink/5"
+      >
+        <h3 className="font-script text-4xl leading-tight text-invite-wine sm:text-5xl">
+          Venue
+        </h3>
+        <Kuthuvilakku className="mt-4" />
+        <p className="mt-4 flex items-center gap-2 font-body text-base leading-relaxed text-invite-gray">
+          <PinIcon />
+          {EVENT.venueHall}
+        </p>
+        <p className="mt-2 max-w-xs font-body text-sm leading-relaxed text-invite-gray-light">
+          {EVENT.address}
+        </p>
+        <p className="mt-5 font-label text-xs tracking-[0.12em] text-invite-royal-pink uppercase">
+          View on Maps →
+        </p>
+      </Card>
+    </a>
+  );
+}
+
+function PinIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+      <path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
   );
 }

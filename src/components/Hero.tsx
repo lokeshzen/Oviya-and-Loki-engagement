@@ -320,7 +320,7 @@ export function Hero() {
         {...(!isOpen ? { inert: true } : {})}
       >
         <p className="hero-enter hero-enter-delay-1 font-label text-sm font-semibold tracking-[0.22em] text-white uppercase [text-shadow:0_1px_4px_rgba(6,30,58,0.7)] sm:text-base">
-          You are cordially invited to our {EVENT.title}
+          You are cordially invited to our wedding and reception
         </p>
 
         <div className="hero-enter hero-enter-delay-2 my-5 sm:my-6">
@@ -347,18 +347,6 @@ export function Hero() {
             {EVENT.groom}
           </span>
         </h1>
-
-        <div className="hero-enter hero-enter-delay-4 mt-8 sm:mt-10">
-          <a
-            href="#details"
-            className="inline-flex items-center gap-2 rounded-full border border-invite-ivory-gold/50 bg-invite-ivory/90 px-6 py-2.5 font-label text-sm text-invite-royal-purple shadow-sm backdrop-blur-sm transition hover:border-invite-royal-pink hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2"
-          >
-            View Details
-            <span className="animate-float-soft" aria-hidden>
-              ↓
-            </span>
-          </a>
-        </div>
       </motion.div>
 
       <motion.div

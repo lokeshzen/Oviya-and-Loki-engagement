@@ -53,7 +53,7 @@ export function ActionButtons() {
         <ScrollReveal direction="3d">
           <SectionHeading
             eyebrow="Plan Your Visit"
-            title="Save the Date"
+            title="Add to Your Calendar"
             description="Add both celebrations to your calendar or get directions to the venue."
           />
         </ScrollReveal>
@@ -109,7 +109,7 @@ export function ActionButtons() {
               className="h-auto w-full rounded-md"
             />
             <p className="mt-3 font-label text-[0.7rem] font-medium tracking-[0.18em] text-invite-royal-pink uppercase">
-              Scan for location
+              Scan for the venue
             </p>
             <p className="mt-1 text-center font-body text-base text-invite-gray">
               {EVENT.venue}
@@ -135,7 +135,7 @@ export function ActionButtons() {
             disabled={icsLoading}
             className="font-label text-xs tracking-[0.12em] text-invite-royal-purple underline-offset-4 transition hover:text-invite-royal-pink hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2 disabled:opacity-50"
           >
-            {icsLoading ? "Saving…" : "Save .ics"}
+            {icsLoading ? "Downloading…" : "Download calendar"}
           </button>
         </ScrollReveal>
       </div>
