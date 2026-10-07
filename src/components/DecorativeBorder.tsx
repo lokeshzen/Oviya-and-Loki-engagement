@@ -16,7 +16,7 @@ export function DecorativeBorder({ className, flip = false }: DecorativeBorderPr
     <svg
       viewBox="0 0 320 36"
       className={cn(
-        "mx-auto h-10 w-full max-w-xs text-white drop-shadow-[0_1px_2px_rgba(6,30,58,0.75)] sm:h-12 sm:max-w-md",
+        "mx-auto h-10 w-full max-w-xs sm:h-12 sm:max-w-md",
         flip && "rotate-180",
         className,
       )}
@@ -91,7 +91,7 @@ export function AmpersandMedallion({ className }: { className?: string }) {
     >
       <svg
         viewBox="0 0 44 44"
-        className="absolute inset-0 text-white drop-shadow-[0_1px_2px_rgba(6,30,58,0.7)]"
+        className="absolute inset-0 text-white drop-shadow-[0_1px_2px_rgba(62,36,28,0.7)]"
         fill="none"
         aria-hidden
       >
@@ -110,7 +110,7 @@ export function AmpersandMedallion({ className }: { className?: string }) {
           strokeWidth="1.35"
         />
       </svg>
-      <span className="font-monogram text-[2rem] font-semibold leading-none text-white [text-shadow:0_1px_3px_rgba(6,30,58,0.75)]">
+      <span className="font-monogram text-[2rem] font-semibold leading-none text-white [text-shadow:0_1px_3px_rgba(62,36,28,0.75)]">
         &
       </span>
     </span>

@@ -413,7 +413,7 @@ export function Hero() {
         </p>
 
         <div className="hero-enter hero-enter-delay-2 my-5 sm:my-6">
-          <DecorativeBorder />
+          <DecorativeBorder className="text-white drop-shadow-[0_1px_2px_rgba(62,36,28,0.75)]" />
         </div>
 
         <h1
@@ -425,9 +425,9 @@ export function Hero() {
             {EVENT.bride}
           </span>
           <span className="my-1 flex items-center gap-3">
-            <span className="h-[2px] w-10 rounded-full bg-white shadow-[0_1px_2px_rgba(6,30,58,0.65)]" />
+            <span className="h-[2px] w-10 rounded-full bg-white shadow-[0_1px_2px_rgba(62,36,28,0.65)]" />
             <AmpersandMedallion />
-            <span className="h-[2px] w-10 rounded-full bg-white shadow-[0_1px_2px_rgba(6,30,58,0.65)]" />
+            <span className="h-[2px] w-10 rounded-full bg-white shadow-[0_1px_2px_rgba(62,36,28,0.65)]" />
           </span>
           <span
             id="hero-groom"

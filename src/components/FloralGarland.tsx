@@ -80,20 +80,32 @@ function GarlandSegment({ index }: { index: number }) {
       <path
         className="garland-vine"
         d="M22 0 C18 18 28 18 22 36 C17 54 28 54 21 72"
-        stroke="#3f6b32"
+        stroke="#c4a05a"
         strokeWidth="1.6"
         strokeLinecap="round"
       />
-      {BLOOMS.map((bloom, bloomIndex) => (
-        <Jasmine
-          key={bloom.y}
-          x={bloom.x}
-          y={bloom.y}
-          scale={bloom.scale}
-          delay={`${((index * 3 + bloomIndex) % 8) * 0.28}s`}
-        />
-      ))}
-      <JasmineBud
+      {BLOOMS.map((bloom, bloomIndex) => {
+        const delay = `${((index * 3 + bloomIndex) % 8) * 0.28}s`;
+        const isCrimson = bloomIndex % 2 === 0;
+        return isCrimson ? (
+          <CrimsonBloom
+            key={bloom.y}
+            x={bloom.x}
+            y={bloom.y}
+            scale={bloom.scale}
+            delay={delay}
+          />
+        ) : (
+          <Jasmine
+            key={bloom.y}
+            x={bloom.x}
+            y={bloom.y}
+            scale={bloom.scale}
+            delay={delay}
+          />
+        );
+      })}
+      <CrimsonBud
         x={budOnOuter ? 8 : 10}
         y={budOnOuter ? 20 : 50}
         rotate={budOnOuter ? -28 : -18}
@@ -117,7 +129,7 @@ function Jasmine({
   return (
     <g className="garland-sway" style={{ animationDelay: delay }}>
       <g transform={`translate(${x} ${y}) scale(${scale})`}>
-        <circle r="5.1" fill="#c5d7b0" />
+        <circle r="5.1" fill="#f3e6c4" />
         {Array.from({ length: 7 }, (_, petal) => (
           <ellipse
             key={petal}
@@ -126,19 +138,53 @@ function Jasmine({
             rx="1.45"
             ry="2.85"
             fill="#ffffff"
-            stroke="#3f6b32"
+            stroke="#c4a05a"
             strokeWidth="0.7"
             transform={`rotate(${(360 / 7) * petal})`}
           />
         ))}
         <circle r="1.55" fill="#f3e2a8" stroke="#8a6a1e" strokeWidth="0.35" />
-        <circle r="0.55" fill="#c9a227" />
+        <circle r="0.55" fill="#c4a05a" />
       </g>
     </g>
   );
 }
 
-function JasmineBud({
+function CrimsonBloom({
+  x,
+  y,
+  scale,
+  delay,
+}: {
+  x: number;
+  y: number;
+  scale: number;
+  delay: string;
+}) {
+  return (
+    <g className="garland-sway" style={{ animationDelay: delay }}>
+      <g transform={`translate(${x} ${y}) scale(${scale})`}>
+        {Array.from({ length: 5 }, (_, petal) => (
+          <ellipse
+            key={petal}
+            cx="0"
+            cy="-3.2"
+            rx="1.55"
+            ry="2.7"
+            fill="#8e2436"
+            stroke="#6e1e2c"
+            strokeWidth="0.45"
+            transform={`rotate(${(360 / 5) * petal})`}
+          />
+        ))}
+        <circle r="1.45" fill="#f3e2a8" stroke="#c4a05a" strokeWidth="0.35" />
+        <circle r="0.5" fill="#c4a05a" />
+      </g>
+    </g>
+  );
+}
+
+function CrimsonBud({
   x,
   y,
   rotate,
@@ -152,8 +198,8 @@ function JasmineBud({
   return (
     <g className="garland-sway" style={{ animationDelay: delay }}>
       <g transform={`translate(${x} ${y}) rotate(${rotate})`}>
-        <ellipse cx="0" cy="0" rx="1.7" ry="3.3" fill="#ffffff" stroke="#3f6b32" strokeWidth="0.55" />
-        <ellipse cx="0" cy="-1.7" rx="0.85" ry="1.35" fill="#3f6b32" />
+        <ellipse cx="0" cy="0" rx="1.7" ry="3.3" fill="#8e2436" stroke="#c4a05a" strokeWidth="0.55" />
+        <ellipse cx="0" cy="-1.7" rx="0.85" ry="1.35" fill="#6e1e2c" />
       </g>
     </g>
   );

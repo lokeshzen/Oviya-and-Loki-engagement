@@ -77,15 +77,15 @@ export const SCHEDULE = [
 ] as const;
 
 export const COLORS = {
-  royalPink: "#0B3A6A",
-  royalPurple: "#061E3A",
+  royalPink: "#8E2436",
+  royalPurple: "#3E241C",
   ivory: "#FEFCF8",
-  ivoryGold: "#C9A227",
+  ivoryGold: "#C4A05A",
   champagne: "#F3E6C4",
-  deepPlum: "#061E3A",
-  roseBlush: "#E7EEF6",
+  deepPlum: "#3E241C",
+  roseBlush: "#F6EDE0",
   petalLight: "#F3E6C4",
-  petalMid: "#0B3A6A",
+  petalMid: "#8E2436",
   gray: "#4A5A6E",
   grayLight: "#5F6E80",
 } as const;

@@ -4,7 +4,7 @@ import { EVENT, FAMILY } from "@/lib/event";
 
 export function EventDetails() {
   return (
-    <ParallaxSection id="details" overlay="warm" speed={0.3}>
+    <ParallaxSection id="details" overlay="maroon" speed={0.3}>
       <div className="container-wide">
         <FamilyInvitation />
       </div>
@@ -16,7 +16,7 @@ function FamilyInvitation() {
   return (
     <Card
       variant="default"
-      className="mx-auto max-w-xl bg-invite-ivory/80 text-center backdrop-blur-sm"
+      className="mx-auto max-w-xl text-center"
     >
       <h2 className="font-script text-4xl leading-tight text-invite-wine sm:text-5xl">
         The Invitation

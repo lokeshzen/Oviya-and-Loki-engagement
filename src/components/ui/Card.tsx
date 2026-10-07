@@ -30,12 +30,18 @@ export function Card({
         "relative overflow-hidden rounded-2xl py-6 sm:py-8",
         isArticle ? "px-14 sm:px-16" : "px-6 sm:px-8",
         variantStyles[variant],
+        isArticle &&
+          "border-invite-ivory-gold bg-invite-ivory shadow-[0_2px_4px_rgba(62,36,28,0.06),0_16px_36px_-12px_rgba(62,36,28,0.28)]",
         className
       )}
       {...props}
     >
       {isArticle ? (
         <>
+          <div
+            className="pointer-events-none absolute inset-[6px] rounded-[14px] border border-invite-ivory-gold/70"
+            aria-hidden
+          />
           <FloralGarland side="left" />
           <FloralGarland side="right" />
         </>

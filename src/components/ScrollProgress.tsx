@@ -22,7 +22,7 @@ export function ScrollProgress() {
   const glow = useTransform(scroll?.velocity ?? idleVelocity, (value) =>
     Math.min(0.55, Math.abs(value) / 28),
   );
-  const shadow = useMotionTemplate`0 0 14px rgba(11, 58, 106, ${glow})`;
+  const shadow = useMotionTemplate`0 0 14px rgba(142, 36, 54, ${glow})`;
 
   if (reduceMotion) return null;
 

@@ -36,7 +36,7 @@ export default function HomePage() {
         <Hero />
         <SectionTransition />
         <Welcome />
-        <SectionTransition />
+        <SectionTransition variant="lotus" />
         <EventDetails />
         <SectionTransition />
         <Schedule />

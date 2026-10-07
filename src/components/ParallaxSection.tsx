@@ -10,13 +10,14 @@ import {
 import { OrnamentFrieze } from "@/components/OrnamentFrieze";
 import { cn } from "@/lib/utils";
 
-type OverlayTone = "cream" | "blush" | "warm" | "deep";
+type OverlayTone = "cream" | "blush" | "warm" | "deep" | "maroon";
 
 const overlayStyles: Record<OverlayTone, string> = {
   cream: "bg-invite-ivory",
   blush: "bg-gradient-to-b from-invite-ivory via-invite-rose-blush/70 to-invite-ivory",
   warm: "bg-gradient-to-b from-invite-ivory via-invite-champagne/45 to-invite-ivory",
   deep: "bg-gradient-to-b from-invite-ivory via-invite-rose-blush/55 to-invite-ivory",
+  maroon: "bg-invite-maroon",
 };
 
 type ParallaxSectionProps = {

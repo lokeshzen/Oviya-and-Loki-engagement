@@ -27,7 +27,7 @@ function PeacockFeather({
   total: number;
 }) {
   const config = getPetalConfig(index, total);
-  const eye = index % 3 === 2 ? "#C9A227" : "#0B3A6A";
+  const eye = index % 3 === 2 ? "#C4A05A" : "#8E2436";
 
   return (
     <span
@@ -53,7 +53,7 @@ function PeacockFeather({
           <ellipse cx="12" cy="30" rx="7.5" ry="20" fill={config.color} opacity="0.5" />
           <ellipse cx="12" cy="18" rx="4.4" ry="7.5" fill={eye} opacity="0.9" />
           <circle cx="12" cy="16.5" r="2.1" fill="#FEFCF8" />
-          <circle cx="12" cy="16.5" r="1.1" fill="#C9A227" />
+          <circle cx="12" cy="16.5" r="1.1" fill="#C4A05A" />
           <path
             d="M12 8.5 C12 8.5 12.4 4 12 1.5"
             stroke={config.color}

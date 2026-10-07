@@ -40,7 +40,7 @@ export function Schedule() {
                       {item.time}
                     </p>
                     <span
-                      className="relative z-10 h-2.5 w-2.5 rotate-45 bg-invite-ivory-gold shadow-[0_0_8px_rgba(201,162,39,0.55)]"
+                      className="relative z-10 h-2.5 w-2.5 rotate-45 bg-invite-ivory-gold shadow-[0_0_8px_rgba(196,160,90,0.55)]"
                       aria-hidden
                     />
                     <p className="font-body text-lg leading-snug text-invite-royal-purple sm:text-xl">
@@ -72,7 +72,7 @@ function VenueCard() {
     >
       <Card
         variant="default"
-        className="flex flex-col items-center bg-invite-ivory/80 text-center backdrop-blur-sm transition-shadow hover:border-invite-royal-pink/40 hover:shadow-md hover:shadow-invite-royal-pink/5"
+        className="flex flex-col items-center text-center transition-shadow hover:border-invite-royal-pink/40"
       >
         <h3 className="font-script text-4xl leading-tight text-invite-wine sm:text-5xl">
           Venue

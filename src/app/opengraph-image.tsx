@@ -17,7 +17,7 @@ export default async function Image() {
           alignItems: "center",
           justifyContent: "center",
           background:
-            "linear-gradient(160deg, #FEFCF8 0%, #E7EEF6 50%, #FEFCF8 100%)",
+            "linear-gradient(160deg, #FEFCF8 0%, #F6EDE0 50%, #FEFCF8 100%)",
           fontFamily: "Georgia, serif",
         }}
       >
@@ -31,8 +31,8 @@ export default async function Image() {
             height: 500,
             background: "#FEFCF8",
             borderRadius: 24,
-            border: "2px solid #C9A227",
-            boxShadow: "0 20px 60px rgba(11, 58, 106, 0.12)",
+            border: "2px solid #C4A05A",
+            boxShadow: "0 20px 60px rgba(62, 36, 28, 0.12)",
           }}
         >
           <div
@@ -47,7 +47,7 @@ export default async function Image() {
           </div>
           <div
             style={{
-              color: "#061E3A",
+              color: "#3E241C",
               fontSize: 64,
               fontWeight: 500,
               marginTop: 12,
@@ -57,7 +57,7 @@ export default async function Image() {
           </div>
           <div
             style={{
-              color: "#0B3A6A",
+              color: "#8E2436",
               fontSize: 48,
               fontStyle: "italic",
               marginTop: 16,
@@ -65,10 +65,10 @@ export default async function Image() {
           >
             {`${EVENT.bride} & ${EVENT.groom}`}
           </div>
-          <div style={{ color: "#061E3A", fontSize: 22, marginTop: 24 }}>
+          <div style={{ color: "#3E241C", fontSize: 22, marginTop: 24 }}>
             {`Reception · ${RECEPTION.dateLabel} · ${RECEPTION.timeLabel}`}
           </div>
-          <div style={{ color: "#061E3A", fontSize: 22, marginTop: 8 }}>
+          <div style={{ color: "#3E241C", fontSize: 22, marginTop: 8 }}>
             {`Wedding · ${EVENT.dateLabel} · ${EVENT.timeLabel}`}
           </div>
           <div style={{ color: "#4A5A6E", fontSize: 20, marginTop: 12 }}>

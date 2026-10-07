@@ -98,7 +98,7 @@ function CurtainFace({ mirrored = false }: { mirrored?: boolean }) {
         className="absolute inset-0 opacity-80"
         style={{
           background:
-            "linear-gradient(90deg, rgba(6,30,58,0.06) 0%, transparent 18%, transparent 78%, rgba(201,162,39,0.22) 100%)",
+            "linear-gradient(90deg, rgba(62,36,28,0.06) 0%, transparent 18%, transparent 78%, rgba(196,160,90,0.22) 100%)",
         }}
       />
 
@@ -113,29 +113,29 @@ function CurtainFace({ mirrored = false }: { mirrored?: boolean }) {
             <path
               d="M36 8 C28 18 28 26 36 36 C44 26 44 18 36 8 Z"
               fill="none"
-              stroke="#c9a227"
+              stroke="#c4a05a"
               strokeWidth="0.7"
               opacity="0.35"
             />
             <path
               d="M18 48 C12 56 12 64 18 72 C24 64 24 56 18 48 Z"
               fill="none"
-              stroke="#c9a227"
+              stroke="#c4a05a"
               strokeWidth="0.55"
               opacity="0.28"
             />
             <path
               d="M54 48 C48 56 48 64 54 72 C60 64 60 56 54 48 Z"
               fill="none"
-              stroke="#c9a227"
+              stroke="#c4a05a"
               strokeWidth="0.55"
               opacity="0.28"
             />
-            <circle cx="36" cy="36" r="1.4" fill="#c9a227" opacity="0.4" />
+            <circle cx="36" cy="36" r="1.4" fill="#c4a05a" opacity="0.4" />
             <path
               d="M36 36 Q48 44 60 40"
               fill="none"
-              stroke="#0b3a6a"
+              stroke="#8e2436"
               strokeWidth="0.4"
               opacity="0.12"
             />
@@ -175,7 +175,7 @@ function PeacockMotifs() {
             strokeWidth="1.1"
           />
           <circle cx="26" cy={cy} r="7" stroke="currentColor" strokeWidth="0.9" />
-          <circle cx="26" cy={cy} r="3.2" fill="#0b3a6a" opacity="0.35" />
+          <circle cx="26" cy={cy} r="3.2" fill="#8e2436" opacity="0.35" />
           <circle cx="26" cy={cy} r="1.4" fill="currentColor" />
         </g>
       ))}
@@ -187,29 +187,29 @@ function Tassel({ style }: { style: { top: string; right: string } }) {
   return (
     <span className="absolute" style={style} aria-hidden>
       <svg width="18" height="42" viewBox="0 0 18 42" fill="none">
-        <circle cx="9" cy="4" r="2.2" fill="#c9a227" />
-        <path d="M9 6 V14" stroke="#c9a227" strokeWidth="1" />
+        <circle cx="9" cy="4" r="2.2" fill="#c4a05a" />
+        <path d="M9 6 V14" stroke="#c4a05a" strokeWidth="1" />
         <path
           d="M9 14 C5 18 4 24 6 38"
-          stroke="#c9a227"
+          stroke="#c4a05a"
           strokeWidth="0.9"
           strokeLinecap="round"
         />
         <path
           d="M9 14 C9 20 9 28 9 38"
-          stroke="#c9a227"
+          stroke="#c4a05a"
           strokeWidth="0.9"
           strokeLinecap="round"
         />
         <path
           d="M9 14 C13 18 14 24 12 38"
-          stroke="#c9a227"
+          stroke="#c4a05a"
           strokeWidth="0.9"
           strokeLinecap="round"
         />
-        <circle cx="6" cy="38" r="1.15" fill="#c9a227" />
-        <circle cx="9" cy="39" r="1.15" fill="#c9a227" />
-        <circle cx="12" cy="38" r="1.15" fill="#c9a227" />
+        <circle cx="6" cy="38" r="1.15" fill="#c4a05a" />
+        <circle cx="9" cy="39" r="1.15" fill="#c4a05a" />
+        <circle cx="12" cy="38" r="1.15" fill="#c4a05a" />
       </svg>
     </span>
   );

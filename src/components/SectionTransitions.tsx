@@ -1,10 +1,33 @@
 "use client";
 
 import { useReducedMotion } from "framer-motion";
+import { DecorativeBorder } from "@/components/DecorativeBorder";
 import { cn } from "@/lib/utils";
 
-export function SectionTransition({ className }: { className?: string }) {
+type SectionTransitionProps = {
+  className?: string;
+  variant?: "diamond" | "lotus";
+};
+
+export function SectionTransition({
+  className,
+  variant = "diamond",
+}: SectionTransitionProps) {
   const reduceMotion = useReducedMotion();
+
+  if (variant === "lotus") {
+    return (
+      <div
+        className={cn(
+          "pointer-events-none relative z-20 -my-5 flex h-12 items-center justify-center bg-invite-maroon",
+          className,
+        )}
+        aria-hidden
+      >
+        <DecorativeBorder className="text-invite-ivory-gold drop-shadow-none" />
+      </div>
+    );
+  }
 
   return (
     <div
