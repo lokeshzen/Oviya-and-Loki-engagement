@@ -7,7 +7,7 @@ import { WELCOME } from "@/lib/event";
 
 export function Welcome() {
   return (
-    <ParallaxSection id="welcome" overlay="maroon" speed={0.3}>
+    <ParallaxSection id="welcome" overlay="cream" speed={0.3}>
       <div className="container-narrow">
         <ScrollReveal direction="up">
           <Card variant="default" className="text-center">

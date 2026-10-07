@@ -19,7 +19,7 @@ export function SectionTransition({
     return (
       <div
         className={cn(
-          "pointer-events-none relative z-20 -my-5 flex h-12 items-center justify-center bg-invite-maroon",
+          "pointer-events-none relative z-20 -my-5 flex h-12 items-center justify-center",
           className,
         )}
         aria-hidden

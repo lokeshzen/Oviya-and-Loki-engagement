@@ -4,7 +4,7 @@ import { EVENT, FAMILY } from "@/lib/event";
 
 export function EventDetails() {
   return (
-    <ParallaxSection id="details" overlay="maroon" speed={0.3}>
+    <ParallaxSection id="details" overlay="cream" speed={0.3}>
       <div className="container-wide">
         <FamilyInvitation />
       </div>
