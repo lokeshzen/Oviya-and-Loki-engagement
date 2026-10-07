@@ -4,13 +4,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { AmpersandMedallion, DecorativeBorder } from "@/components/DecorativeBorder";
 import { HeroCurtain } from "@/components/HeroCurtain";
-import { PeacockCrest } from "@/components/PeacockCrest";
 import { useSmoothScroll } from "@/components/SmoothScroll";
 import { EVENT } from "@/lib/event";
 import { cn } from "@/lib/utils";
 
 const CURTAIN_SEQUENCE_MS = 2000;
 const CURTAIN_FALLBACK_MS = 8000;
+// Matches HeroCurtain: 0.2s delay + 0.9s panel travel.
+const CURTAIN_REVEAL_MS = 1100;
+const BGM_VOLUME = 0.85;
+const BGM_FADE_MS = 900;
 
 const NAME_SPARKS = [
   { top: "4%", left: "6%", delay: "2.05s", size: 3 },
@@ -22,6 +25,18 @@ const NAME_SPARKS = [
   { top: "28%", left: "16%", delay: "3.15s", size: 2 },
   { top: "68%", left: "80%", delay: "3.35s", size: 2 },
 ] as const;
+
+function MusicMark({ playing }: { playing: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden
+      className={cn("h-3.5 w-3.5 fill-current", playing && "animate-pulse")}
+    >
+      <path d="M9 18.5a2.5 2.5 0 1 1-2.5-2.5H8V6.2l10-1.7v10.5h-.5a2.5 2.5 0 1 1-1.5-2.3V7.1L9 8.5v10z" />
+    </svg>
+  );
+}
 
 function NameSparks() {
   return (
@@ -47,14 +62,107 @@ export function Hero() {
   const reduceMotion = useReducedMotion();
   const scroll = useSmoothScroll();
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const hasOpenedRef = useRef(false);
+  const fadeFrameRef = useRef(0);
+  const revealTimerRef = useRef(0);
   const [isOpen, setIsOpen] = useState(false);
   const [curtainMounted, setCurtainMounted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const skipCurtain = reduceMotion === true;
 
+  const cancelFade = useCallback(() => {
+    if (fadeFrameRef.current) {
+      cancelAnimationFrame(fadeFrameRef.current);
+      fadeFrameRef.current = 0;
+    }
+  }, []);
+
+  const clearRevealTimer = useCallback(() => {
+    if (revealTimerRef.current) {
+      window.clearTimeout(revealTimerRef.current);
+      revealTimerRef.current = 0;
+    }
+  }, []);
+
+  const fadeTo = useCallback(
+    (audio: HTMLAudioElement, target: number, duration: number) => {
+      cancelFade();
+      const from = audio.volume;
+      const start = performance.now();
+      const step = (now: number) => {
+        // The first frame timestamp can land a few ms before performance.now().
+        // An unclamped progress goes negative and setting volume throws, which
+        // aborts the fade and leaves the track silent.
+        const progress =
+          duration <= 0 ? 1 : Math.min(1, Math.max(0, (now - start) / duration));
+        const eased = 1 - (1 - progress) ** 3;
+        audio.volume = Math.min(1, Math.max(0, from + (target - from) * eased));
+        if (progress < 1) {
+          fadeFrameRef.current = requestAnimationFrame(step);
+        } else {
+          fadeFrameRef.current = 0;
+        }
+      };
+      fadeFrameRef.current = requestAnimationFrame(step);
+    },
+    [cancelFade],
+  );
+
+  const playMusic = useCallback(
+    (afterReveal: boolean) => {
+      const audio = audioRef.current;
+      if (!audio) return;
+
+      if (afterReveal) audio.volume = 0;
+
+      void audio
+        .play()
+        .then(() => {
+          const delay = afterReveal ? CURTAIN_REVEAL_MS : 0;
+          const fade = afterReveal ? BGM_FADE_MS : 500;
+          clearRevealTimer();
+          revealTimerRef.current = window.setTimeout(() => {
+            revealTimerRef.current = 0;
+            if (!audio.paused) fadeTo(audio, BGM_VOLUME, fade);
+          }, delay);
+        })
+        .catch(() => {
+          setIsPlaying(false);
+        });
+    },
+    [clearRevealTimer, fadeTo],
+  );
+
   const open = useCallback(() => {
     setIsOpen(true);
-  }, []);
+    if (hasOpenedRef.current) return;
+    hasOpenedRef.current = true;
+    playMusic(true);
+  }, [playMusic]);
+
+  const toggleMusic = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (!audio.paused) {
+      clearRevealTimer();
+      cancelFade();
+      audio.pause();
+      return;
+    }
+
+    playMusic(false);
+  }, [cancelFade, clearRevealTimer, playMusic]);
+
+  useEffect(() => {
+    return () => {
+      clearRevealTimer();
+      cancelFade();
+    };
+  }, [cancelFade, clearRevealTimer]);
 
   useEffect(() => {
     if (skipCurtain) {
@@ -62,6 +170,28 @@ export function Hero() {
       setCurtainMounted(false);
     }
   }, [skipCurtain]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (reduceMotion) {
+      video.pause();
+      return;
+    }
+
+    const play = () => {
+      void video.play().catch(() => {});
+    };
+
+    if (video.readyState >= 2) {
+      play();
+      return;
+    }
+
+    video.addEventListener("canplay", play, { once: true });
+    return () => video.removeEventListener("canplay", play);
+  }, [reduceMotion]);
 
   useEffect(() => {
     if (skipCurtain || isOpen) return;
@@ -128,6 +258,28 @@ export function Hero() {
       )}
       aria-labelledby="hero-title"
     >
+      <audio
+        ref={audioRef}
+        src="/assets/sundari-kannal-bgm.mp3"
+        loop
+        preload="auto"
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+      />
+
+      {isOpen ? (
+        <button
+          type="button"
+          onClick={toggleMusic}
+          aria-pressed={isPlaying}
+          aria-label={isPlaying ? "Pause music" : "Play music"}
+          className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-[max(1.25rem,env(safe-area-inset-left))] z-[75] inline-flex items-center gap-2 rounded-full border border-invite-ivory-gold/50 bg-invite-ivory/90 px-4 py-2 font-label text-[0.68rem] font-medium tracking-[0.22em] text-invite-royal-purple uppercase shadow-sm backdrop-blur-sm transition hover:border-invite-royal-pink hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-invite-royal-pink focus-visible:ring-offset-2"
+        >
+          <MusicMark playing={isPlaying} />
+          {isPlaying ? "Pause" : "Play"}
+        </button>
+      ) : null}
+
       {curtainMounted ? (
         <HeroCurtain
           isOpen={isOpen}
@@ -137,9 +289,21 @@ export function Hero() {
       ) : null}
 
       <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <div className="absolute inset-0 bg-invite-ivory" />
-        <div className="absolute inset-0 bg-gradient-to-b from-invite-rose-blush/55 via-invite-ivory to-invite-champagne/40" />
-        <div className="absolute inset-0 bg-gradient-to-r from-invite-ivory/40 via-transparent to-invite-ivory/40" />
+        <video
+          ref={videoRef}
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          disablePictureInPicture
+        >
+          <source src="/assets/loki-wedding.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-invite-ivory/15" />
+        <div className="absolute inset-0 bg-gradient-to-b from-invite-rose-blush/15 via-transparent to-invite-champagne/15" />
+        <div className="absolute inset-0 bg-gradient-to-r from-invite-ivory/20 via-transparent to-invite-ivory/20" />
         <motion.div
           className="absolute inset-0 animate-reveal-glow opacity-50"
           style={{
@@ -155,20 +319,7 @@ export function Hero() {
         style={reduceMotion ? undefined : { opacity: contentOpacity, y: contentY }}
         {...(!isOpen ? { inert: true } : {})}
       >
-        <motion.div
-          className="flex flex-col items-center"
-          initial={false}
-          animate={{ scale: isOpen ? 1 : 0.96 }}
-          transition={
-            isOpen && !skipCurtain
-              ? { delay: 1.2, duration: 0.5, ease: [0.22, 1, 0.36, 1] }
-              : { duration: 0 }
-          }
-        >
-          <PeacockCrest />
-        </motion.div>
-
-        <p className="hero-enter hero-enter-delay-1 font-label text-xs font-medium tracking-[0.25em] text-invite-gray uppercase">
+        <p className="hero-enter hero-enter-delay-1 font-label text-sm font-semibold tracking-[0.22em] text-white uppercase [text-shadow:0_1px_4px_rgba(6,30,58,0.7)] sm:text-base">
           You are cordially invited to our {EVENT.title}
         </p>
 
@@ -181,17 +332,17 @@ export function Hero() {
           className="hero-enter hero-enter-delay-3 relative flex flex-col items-center gap-2"
         >
           {reduceMotion ? null : <NameSparks />}
-          <span className="royal-name-glow font-accent text-6xl leading-none text-invite-royal-purple sm:text-7xl lg:text-8xl">
+          <span className="royal-name-glow font-accent text-6xl leading-tight text-white sm:text-7xl lg:text-8xl">
             {EVENT.bride}
           </span>
           <span className="my-1 flex items-center gap-3">
-            <span className="gold-divider w-8" />
+            <span className="h-[2px] w-10 rounded-full bg-white shadow-[0_1px_2px_rgba(6,30,58,0.65)]" />
             <AmpersandMedallion />
-            <span className="gold-divider w-8" />
+            <span className="h-[2px] w-10 rounded-full bg-white shadow-[0_1px_2px_rgba(6,30,58,0.65)]" />
           </span>
           <span
             id="hero-groom"
-            className="royal-name-glow font-accent text-6xl leading-none text-invite-royal-purple sm:text-7xl lg:text-8xl"
+            className="royal-name-glow font-accent text-6xl leading-tight text-white sm:text-7xl lg:text-8xl"
           >
             {EVENT.groom}
           </span>

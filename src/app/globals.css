@@ -26,7 +26,9 @@
   --font-display: var(--font-playfair);
   --font-body: var(--font-cormorant);
   --font-label: var(--font-inter);
-  --font-accent: var(--font-allura);
+  --font-accent: var(--font-beau-rivage);
+  --font-script: var(--font-imperial-script);
+  --font-numerals: var(--font-ovo);
   --font-monogram: var(--font-cinzel);
 }
 
@@ -247,9 +249,9 @@ html.hero-curtain-locked body {
 
 .royal-name-glow {
   text-shadow:
-    0 3px 10px rgba(6, 30, 58, 0.28),
-    0 0 32px rgba(11, 58, 106, 0.18);
-  filter: drop-shadow(0 1px 3px rgba(201, 162, 39, 0.35));
+    0 2px 8px rgba(6, 30, 58, 0.72),
+    0 0 18px rgba(6, 30, 58, 0.45);
+  filter: drop-shadow(0 2px 4px rgba(6, 30, 58, 0.45));
 }
 
 .curtain-monogram {
@@ -551,28 +553,19 @@ html.hero-curtain-locked body {
   transform-box: view-box;
   transform-origin: 180px 196px;
   transform: rotate(var(--fan));
-}
-
-.hero-revealed .peacock-feather-open {
-  animation: featherOpen 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.2s both;
+  animation: featherOpen 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .peacock-feather-breathe {
   transform-box: view-box;
   transform-origin: 180px 196px;
-}
-
-.hero-revealed .peacock-feather-breathe {
-  animation: featherBreathe 5s ease-in-out 2.1s infinite;
+  animation: featherBreathe 5s ease-in-out 0.9s infinite;
 }
 
 .peacock-head {
   transform-box: view-box;
   transform-origin: 180px 148px;
-}
-
-.hero-revealed .peacock-head {
-  animation: peacockHead 5.5s ease-in-out 2.1s infinite;
+  animation: peacockHead 5.5s ease-in-out 0.9s infinite;
 }
 
 @keyframes peacockHead {
@@ -702,51 +695,6 @@ html.hero-curtain-locked body {
   }
 }
 
-.rose-hang {
-  transform-origin: top center;
-  animation: roseHang 4.6s ease-in-out infinite;
-}
-
-.rose-bloom {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: roseBloom 5.4s ease-in-out infinite;
-}
-
-.rose-stem {
-  stroke-dasharray: 5 12;
-  animation: roseStemTravel 8s linear infinite;
-}
-
-@keyframes roseHang {
-  0%,
-  100% {
-    transform: rotate(-2.5deg);
-  }
-  50% {
-    transform: rotate(2.5deg);
-  }
-}
-
-@keyframes roseBloom {
-  0%,
-  100% {
-    transform: rotate(-5deg);
-  }
-  50% {
-    transform: rotate(5deg);
-  }
-}
-
-@keyframes roseStemTravel {
-  from {
-    stroke-dashoffset: 0;
-  }
-  to {
-    stroke-dashoffset: -34;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .animate-float-soft,
   .animate-reveal-glow,
@@ -766,20 +714,14 @@ html.hero-curtain-locked body {
   .hero-revealed .hero-enter,
   .peacock-crest,
   .peacock-feather-open,
-  .hero-revealed .peacock-feather-open,
   .peacock-feather-breathe,
-  .hero-revealed .peacock-feather-breathe,
   .peacock-head,
-  .hero-revealed .peacock-head,
   .lotus-bloom,
   .hero-spark,
   .kuthuvilakku-flame,
   .garland-strand,
   .garland-sway,
-  .garland-vine,
-  .rose-hang,
-  .rose-bloom,
-  .rose-stem {
+  .garland-vine {
     animation: none;
   }
 

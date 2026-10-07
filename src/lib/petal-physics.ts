@@ -50,7 +50,7 @@ export function getPetalConfig(index: number, total: number): PetalConfig {
 }
 
 export const PETAL_DENSITY = {
-  light: 8,
+  light: 11,
   medium: 14,
   heavy: 20,
   burst: 24,

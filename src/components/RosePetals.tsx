@@ -16,7 +16,7 @@ type RosePetalsProps = {
 function getResponsiveCount(density: PetalDensity, isMobile: boolean): number {
   const base = PETAL_DENSITY[density];
   if (!isMobile) return base;
-  return Math.max(6, Math.floor(base * 0.55));
+  return Math.max(8, Math.floor(base * 0.55));
 }
 
 function PeacockFeather({

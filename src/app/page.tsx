@@ -4,12 +4,15 @@ import { ActionButtons } from "@/components/ActionButtons";
 import { EventDetails } from "@/components/EventDetails";
 import { Hero } from "@/components/Hero";
 import { RosePetals } from "@/components/RosePetals";
+import { Schedule } from "@/components/Schedule";
 import { ScrollDrivenElements } from "@/components/ScrollDrivenElements";
 import { ScrollNav } from "@/components/ScrollNav";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ScrollVelocity } from "@/components/ScrollVelocity";
 import { SectionTransition } from "@/components/SectionTransitions";
+import { PeacockCrest } from "@/components/PeacockCrest";
 import { Timeline } from "@/components/Timeline";
+import { Welcome } from "@/components/Welcome";
 import { EVENT, FAMILY } from "@/lib/event";
 
 export default function HomePage() {
@@ -32,11 +35,16 @@ export default function HomePage() {
       <main className="relative min-h-dvh bg-invite-ivory">
         <Hero />
         <SectionTransition />
+        <Welcome />
+        <SectionTransition />
         <Timeline />
+        <SectionTransition />
+        <Schedule />
         <SectionTransition />
         <EventDetails />
         <SectionTransition />
         <ActionButtons />
+        <PeacockCrest />
 
         <footer className="relative border-t border-invite-ivory-gold/30 bg-invite-ivory/95 backdrop-blur-sm overflow-hidden">
           {/* Background decoration */}

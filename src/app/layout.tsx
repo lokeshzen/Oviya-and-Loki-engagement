@@ -1,5 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Allura, Cinzel, Cormorant_Garamond, Inter, Playfair_Display } from "next/font/google";
+import {
+  Beau_Rivage,
+  Cinzel,
+  Cormorant_Garamond,
+  Imperial_Script,
+  Inter,
+  Ovo,
+  Playfair_Display,
+} from "next/font/google";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { EVENT } from "@/lib/event";
 import "./globals.css";
@@ -16,10 +24,24 @@ const inter = Inter({
   display: "swap",
 });
 
-const allura = Allura({
+const beauRivage = Beau_Rivage({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-allura",
+  variable: "--font-beau-rivage",
+  display: "swap",
+});
+
+const imperialScript = Imperial_Script({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-imperial-script",
+  display: "swap",
+});
+
+const ovo = Ovo({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-ovo",
   display: "swap",
 });
 
@@ -94,7 +116,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${playfair.variable} ${inter.variable} ${allura.variable} ${cormorant.variable} ${cinzel.variable} font-body antialiased`}
+        className={`${playfair.variable} ${inter.variable} ${beauRivage.variable} ${imperialScript.variable} ${ovo.variable} ${cormorant.variable} ${cinzel.variable} font-body antialiased`}
       >
         <script
           type="application/ld+json"

@@ -92,7 +92,7 @@ export function PeacockCrest() {
   const neckMaskId = `${rawId}-neck`;
 
   return (
-    <div className="peacock-crest mx-auto mb-1 w-52 sm:mb-2 sm:w-64" aria-hidden>
+    <div className="peacock-crest mx-auto mt-6 mb-2 w-52 sm:w-64" aria-hidden>
       <svg viewBox="0 0 360 268" className="h-auto w-full" fill="none">
         <defs>
           <linearGradient

@@ -25,7 +25,7 @@ export const EVENT = {
 
 export const FAMILY = {
   hostFather: "Mr. K. Murali, B.Sc., DMLT",
-  hostMother: "Mrs. M. Megala, B.Sc.",
+  hostMother: "Mrs. M. Mekhala, B.Sc., DMLT",
   hostRelation: "elder son",
   invitationLine:
     "We cordially solicit your esteemed presence and blessings with family and friends on the auspicious occasion of the marriage of our elder son",
@@ -44,6 +44,24 @@ export const RECEPTION = {
   /** Calendar end only — invitation shows 6:30 pm onwards */
   endISO: "2026-11-14T21:30:00+05:30",
 } as const;
+
+export const WELCOME = {
+  heading: "With joy, we welcome you",
+  body: `Dear family and friends, we are glad to welcome you. Please join us to celebrate the wedding of ${EVENT.bride} and ${EVENT.groom}.`,
+} as const;
+
+export const SCHEDULE = [
+  {
+    date: RECEPTION.dateLabel,
+    time: RECEPTION.timeLabel,
+    title: RECEPTION.title,
+  },
+  {
+    date: EVENT.dateLabel,
+    time: EVENT.timeLabel,
+    title: EVENT.title,
+  },
+] as const;
 
 export const COLORS = {
   royalPink: "#0B3A6A",

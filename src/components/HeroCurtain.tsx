@@ -267,8 +267,8 @@ function CurtainRosePetal({
         left: `${((index * 41) % 100) + ((index * 7) % 5) - 2}%`,
         width: config.size * 1.2,
         height: config.size * 1.75,
-        animationDelay: `-${((index / Math.max(total, 1)) * (3.2 + (index % 11) * 0.18)).toFixed(3)}s`,
-        animationDuration: `${2.6 + (index % 11) * 0.18}s`,
+        animationDelay: `-${((index / Math.max(total, 1)) * (6.4 + (index % 11) * 0.36)).toFixed(3)}s`,
+        animationDuration: `${5.2 + (index % 11) * 0.36}s`,
         ["--drift" as string]: `${config.drift * 0.45}px`,
       }}
     >
