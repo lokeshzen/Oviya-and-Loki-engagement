@@ -14,6 +14,16 @@ const CURTAIN_FALLBACK_MS = 8000;
 const CURTAIN_REVEAL_MS = 1100;
 const BGM_VOLUME = 0.85;
 const BGM_FADE_MS = 900;
+const HERO_VIDEO_SRC = "/assets/loki-wedding.mp4";
+
+function bindInlineVideo(video: HTMLVideoElement) {
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.setAttribute("muted", "");
+  video.setAttribute("playsinline", "");
+  video.setAttribute("webkit-playsinline", "true");
+}
 
 const NAME_SPARKS = [
   { top: "4%", left: "6%", delay: "2.05s", size: 3 },
@@ -63,7 +73,12 @@ export function Hero() {
   const scroll = useSmoothScroll();
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const tryPlayRef = useRef<() => void>(() => {});
   const audioRef = useRef<HTMLAudioElement>(null);
+  const setVideoNode = useCallback((node: HTMLVideoElement | null) => {
+    videoRef.current = node;
+    if (node) bindInlineVideo(node);
+  }, []);
   const hasOpenedRef = useRef(false);
   const holdHeroRef = useRef(true);
   const fadeFrameRef = useRef(0);
@@ -88,7 +103,6 @@ export function Hero() {
   const [isOpen, setIsOpen] = useState(false);
   const [curtainMounted, setCurtainMounted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [loadVideo, setLoadVideo] = useState(false);
 
   const skipCurtain = reduceMotion === true;
 
@@ -156,6 +170,7 @@ export function Hero() {
   );
 
   const open = useCallback(() => {
+    tryPlayRef.current();
     pinHero();
     if (window.location.hash && window.location.hash !== "#hero") {
       history.replaceState(
@@ -240,38 +255,111 @@ export function Hero() {
     };
   }, [pinHero, skipCurtain]);
 
-  useEffect(() => {
-    const start = () => setLoadVideo(true);
-    if (typeof window.requestIdleCallback === "function") {
-      const id = window.requestIdleCallback(start, { timeout: 1800 });
-      return () => window.cancelIdleCallback(id);
-    }
-    const id = window.setTimeout(start, 800);
-    return () => window.clearTimeout(id);
-  }, []);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     const video = videoRef.current;
-    if (!video || !loadVideo) return;
+    if (!video) return;
+    bindInlineVideo(video);
 
     if (reduceMotion) {
       video.pause();
       return;
     }
 
-    const play = () => {
-      void video.play().catch(() => {});
+    let stopped = false;
+    let playPending = false;
+    let nudgeTimer = 0;
+
+    const tryPlay = (fromGesture = false) => {
+      if (stopped) return;
+      bindInlineVideo(video);
+      if (!fromGesture && playPending) return;
+      if (!video.paused && video.currentTime > 0.05) return;
+
+      playPending = true;
+      const pending = video.play();
+      if (!pending) {
+        playPending = false;
+        return;
+      }
+
+      void pending
+        .then(() => {
+          playPending = false;
+          if (stopped || nudgeTimer || video.paused) return;
+          // Cold mobile loads often decode frame 0 and then never advance.
+          nudgeTimer = window.setTimeout(() => {
+            nudgeTimer = 0;
+            if (stopped || video.paused || video.currentTime > 0.05) return;
+            try {
+              video.currentTime = 0.05;
+            } catch {
+              // Seek throws until metadata is available.
+            }
+            void video.play().catch(() => {});
+          }, 400);
+        })
+        .catch(() => {
+          playPending = false;
+        });
     };
 
-    if (video.readyState >= 2) {
-      play();
-      return;
+    tryPlayRef.current = () => tryPlay(true);
+
+    const onEnded = () => {
+      if (stopped) return;
+      try {
+        video.currentTime = 0;
+      } catch {
+        // Ignore seek before metadata.
+      }
+      tryPlay(true);
+    };
+
+    const onLoadedData = () => tryPlay();
+    const onCanPlay = () => tryPlay();
+    const onCanPlayThrough = () => tryPlay();
+
+    video.addEventListener("loadeddata", onLoadedData);
+    video.addEventListener("canplay", onCanPlay);
+    video.addEventListener("canplaythrough", onCanPlayThrough);
+    video.addEventListener("ended", onEnded);
+
+    const onVisible = () => {
+      if (document.visibilityState === "visible") tryPlay();
+    };
+    const onGesture = () => tryPlay(true);
+
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("pageshow", onGesture);
+    window.addEventListener("pointerdown", onGesture, { passive: true });
+
+    if (video.networkState === HTMLMediaElement.NETWORK_EMPTY) {
+      video.load();
+    }
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      tryPlay();
     }
 
-    video.addEventListener("canplay", play, { once: true });
-    video.load();
-    return () => video.removeEventListener("canplay", play);
-  }, [loadVideo, reduceMotion]);
+    const retryId = window.setInterval(() => tryPlay(), 700);
+    const stopRetryId = window.setTimeout(() => {
+      window.clearInterval(retryId);
+    }, 15000);
+
+    return () => {
+      stopped = true;
+      tryPlayRef.current = () => {};
+      window.clearInterval(retryId);
+      window.clearTimeout(stopRetryId);
+      if (nudgeTimer) window.clearTimeout(nudgeTimer);
+      video.removeEventListener("loadeddata", onLoadedData);
+      video.removeEventListener("canplay", onCanPlay);
+      video.removeEventListener("canplaythrough", onCanPlayThrough);
+      video.removeEventListener("ended", onEnded);
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("pageshow", onGesture);
+      window.removeEventListener("pointerdown", onGesture);
+    };
+  }, [reduceMotion]);
 
   useEffect(() => {
     if (skipCurtain || isOpen) return;
@@ -377,19 +465,17 @@ export function Hero() {
 
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <video
-          ref={videoRef}
+          ref={setVideoNode}
           className="absolute inset-0 h-full w-full object-cover"
+          src={HERO_VIDEO_SRC}
           autoPlay
           loop
           muted
           playsInline
-          preload={loadVideo ? "auto" : "none"}
+          preload="auto"
           disablePictureInPicture
-        >
-          {loadVideo ? (
-            <source src="/assets/loki-wedding.mp4" type="video/mp4" />
-          ) : null}
-        </video>
+          disableRemotePlayback
+        />
         <div className="absolute inset-0 bg-invite-ivory/5" />
         <div className="absolute inset-0 bg-gradient-to-b from-invite-rose-blush/5 via-transparent to-invite-champagne/5" />
         <div className="absolute inset-0 bg-gradient-to-r from-invite-ivory/6 via-transparent to-invite-ivory/6" />
